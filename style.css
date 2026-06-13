@@ -1585,6 +1585,57 @@ footer p {
 }
 
 /* =============================================
+   SKILL BADGES (About Section)
+   ============================================= */
+.skills-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.skill-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.skill-label {
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    color: var(--comic-red);
+    min-width: 90px;
+    letter-spacing: 1px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tags span {
+    display: inline-block;
+    padding: 5px 14px;
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: var(--comic-black);
+    background: var(--comic-cyan);
+    border: 2px solid var(--comic-black);
+    box-shadow: 3px 3px 0px var(--comic-black);
+    transition: 0.15s;
+    cursor: default;
+}
+
+.skill-tags span:hover {
+    background: var(--comic-yellow);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px var(--comic-black);
+}
+
+/* =============================================
    CONTACT FORM TOAST NOTIFICATION
    ============================================= */
 .om-toast {
