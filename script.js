@@ -120,14 +120,14 @@ themeToggle.addEventListener('click', () => {
 
 // ⚠️  REPLACE THESE 3 VALUES with your EmailJS credentials
 //     Setup guide: See README or follow steps below
-const EMAILJS_PUBLIC_KEY  = 'blH9IJ0N0xqtRam9j'; // ✅ Set
-const EMAILJS_SERVICE_ID  = 'service_vz5bpbf';    // ✅ Set
+const EMAILJS_PUBLIC_KEY = 'blH9IJ0N0xqtRam9j'; // ✅ Set
+const EMAILJS_SERVICE_ID = 'service_vz5bpbf';    // ✅ Set
 const EMAILJS_TEMPLATE_ID = 'n37u0up';             // ✅ Set
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
 const contactForm = document.getElementById('contact-form');
-const submitBtn   = document.getElementById('submit-btn');
+const submitBtn = document.getElementById('submit-btn');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
