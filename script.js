@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
             setTimeout(() => {
                 preloader.style.display = "none";
             }, 500); // Wait for CSS transition
-        }, 3000); // Delay for branding visibility
+        }, 800); // Delay for branding visibility (reduced from 3000ms for LCP optimization)
     }
     initScrollAnimations();
 });

@@ -58,6 +58,12 @@ body {
     overflow-x: hidden;
 }
 
+/* Standard Scrollbar for Firefox/Standard Browsers */
+html {
+    scrollbar-color: var(--comic-yellow) var(--comic-black);
+    scrollbar-width: auto;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 15px;
