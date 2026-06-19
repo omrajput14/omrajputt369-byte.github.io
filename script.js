@@ -34,7 +34,6 @@ window.addEventListener("load", () => {
     init3DTilt();
     initAgriTechTerminal();
     initLightbox();
-    initSpiderTrailCanvas();
     initAvatarSpeechBubble();
 });
 
@@ -712,87 +711,6 @@ function initLightbox() {
             closeLightbox();
         }
     });
-}
-
-// =============================================
-// 18. SPIDER-VERSE CANVAS CURSOR OVERLAY
-// =============================================
-function initSpiderTrailCanvas() {
-    const canvas = document.getElementById('spider-trail-canvas');
-    if (!canvas) return;
-
-    if (window.matchMedia("(pointer: coarse)").matches) {
-        canvas.style.display = 'none';
-        return;
-    }
-
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }, { passive: true });
-
-    let mouse = { x: -100, y: -100 };
-    let target = null; // Currently hovered interactive element
-
-    // Track mouse coordinates
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    }, { passive: true });
-
-    // Track hovered elements
-    const hoverables = document.querySelectorAll('a, button, .project-card, .blog-card');
-    hoverables.forEach(elem => {
-        elem.addEventListener('mouseenter', () => {
-            target = elem;
-        });
-        elem.addEventListener('mouseleave', () => {
-            target = null;
-        });
-    });
-
-    function drawWebLine(startX, startY, endX, endY) {
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        // Draw slightly organic dynamic curve for the web strand
-        const midX = (startX + endX) / 2 + (Math.random() - 0.5) * 10;
-        const midY = (startY + endY) / 2 + (Math.random() - 0.5) * 10;
-        ctx.quadraticCurveTo(midX, midY, endX, endY);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
-        ctx.lineWidth = 1.8;
-        ctx.stroke();
-        
-        // Draw small nodes on the line representing spider web glue droplets
-        for (let i = 1; i < 4; i++) {
-            const t = i * 0.25;
-            // Quadratic Bezier interpolation formula: B(t) = (1-t)^2 * P0 + 2(1-t)t * P1 + t^2 * P2
-            const lx = Math.pow(1-t, 2)*startX + 2*(1-t)*t*midX + Math.pow(t, 2)*endX;
-            const ly = Math.pow(1-t, 2)*startY + 2*(1-t)*t*midY + Math.pow(t, 2)*endY;
-            ctx.beginPath();
-            ctx.arc(lx, ly, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#fff';
-            ctx.fill();
-        }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-
-        // Draw web hook snapping line if targeting an element
-        if (target) {
-            const rect = target.getBoundingClientRect();
-            const targetX = rect.left + rect.width / 2;
-            const targetY = rect.top + rect.height / 2;
-            drawWebLine(mouse.x, mouse.y, targetX, targetY);
-        }
-
-        requestAnimationFrame(animate);
-    }
-    animate();
 }
 
 // =============================================
