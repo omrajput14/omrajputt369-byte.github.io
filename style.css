@@ -2099,21 +2099,22 @@ footer p {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 16px;
+    padding: 5px 14px;
     font-family: 'Bangers', cursive;
     font-size: 16px;
     letter-spacing: 0.5px;
-    color: var(--comic-white);
+    color: var(--comic-black);
     background: var(--comic-red);
     border: 2px solid var(--comic-black);
     box-shadow: 3px 3px 0px var(--comic-black);
+    transition: 0.15s;
     cursor: default;
 }
 
 .learning-tag:hover {
-    background: var(--comic-cyan);
+    background: var(--comic-yellow);
     color: var(--comic-black);
-    transform: translate(-2px, -2px) !important;
+    transform: translate(-2px, -2px);
     box-shadow: 5px 5px 0px var(--comic-black);
 }
 
