@@ -35,6 +35,7 @@ window.addEventListener("load", () => {
     initAgriTechTerminal();
     initLightbox();
     initAvatarSpeechBubble();
+    initHeroTypewriter();
 });
 
 
@@ -762,4 +763,55 @@ function initAvatarSpeechBubble() {
     document.addEventListener('click', () => {
         bubble.classList.remove('active');
     });
+}
+
+// =============================================
+// 20. HERO SUBTITLE TYPEWRITER EFFECT
+// =============================================
+function initHeroTypewriter() {
+    const subtitleEl = document.getElementById('hero-subtitle');
+    if (!subtitleEl) return;
+
+    const phrases = [
+        "DATA SCIENCE STUDENT | AGRITECH BUILDER",
+        "FULL-STACK DEVELOPER | IOT ENGINEER",
+        "ML INTEGRATOR | CIVIC TECH BUILDER"
+    ];
+
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    let typingSpeed = 70; // Typing speed in ms
+
+    function type() {
+        const currentPhrase = phrases[phraseIdx];
+        
+        if (isDeleting) {
+            subtitleEl.textContent = currentPhrase.substring(0, charIdx - 1);
+            charIdx--;
+            typingSpeed = 35; // Deleting speed is faster
+        } else {
+            subtitleEl.textContent = currentPhrase.substring(0, charIdx + 1);
+            charIdx++;
+            typingSpeed = 70; // Normal typing speed
+        }
+
+        // Add character highlight cursor styling
+        subtitleEl.innerHTML = subtitleEl.textContent + '<span class="typewriter-cursor">|</span>';
+
+        if (!isDeleting && charIdx === currentPhrase.length) {
+            // Finished typing the phrase, wait before deleting
+            isDeleting = true;
+            typingSpeed = 2500; // Pause at end of phrase
+        } else if (isDeleting && charIdx === 0) {
+            // Finished deleting, cycle to next phrase
+            isDeleting = false;
+            phraseIdx = (phraseIdx + 1) % phrases.length;
+            typingSpeed = 500; // Pause before typing next phrase
+        }
+
+        setTimeout(type, typingSpeed);
+    }
+
+    type();
 }
