@@ -33,6 +33,8 @@ window.addEventListener("load", () => {
     initGlitchMode();
     init3DTilt();
     initAgriTechTerminal();
+    initImageZoom();
+    initLightbox();
 });
 
 
@@ -659,4 +661,107 @@ function initAgriTechTerminal() {
                 break;
         }
     }
+}
+
+// =============================================
+// 15. MAGNIFYING ZOOM LENS
+// =============================================
+
+function initImageZoom() {
+    const wrappers = document.querySelectorAll('.project-img-wrapper');
+    if (wrappers.length === 0) return;
+
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    wrappers.forEach(wrapper => {
+        const img = wrapper.querySelector('img');
+        if (!img) return;
+
+        // Dynamically create lens element
+        const lens = document.createElement('div');
+        lens.className = 'zoom-lens';
+        lens.style.backgroundImage = `url('${img.src}')`;
+        wrapper.appendChild(lens);
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+                lens.style.display = 'none';
+                return;
+            }
+
+            // Show and position lens centered on cursor
+            lens.style.display = 'block';
+            lens.style.left = `${x}px`;
+            lens.style.top = `${y}px`;
+
+            // Calculate background size dynamically based on current bounding rect
+            lens.style.backgroundSize = `${rect.width * 2.5}px ${rect.height * 2.5}px`;
+
+            // Calculate background position percentages
+            const px = (x / rect.width) * 100;
+            const py = (y / rect.height) * 100;
+
+            lens.style.backgroundPosition = `${px}% ${py}%`;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            lens.style.display = 'none';
+        });
+    });
+}
+
+
+// =============================================
+// 16. INFOGRAPHIC LIGHTBOX MODAL
+// =============================================
+
+function initLightbox() {
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.querySelector('.lightbox-close');
+    const triggers = document.querySelectorAll('.project-img-wrapper');
+
+    if (!lightbox || !lightboxImg || !closeBtn || triggers.length === 0) return;
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const img = trigger.querySelector('img');
+            const card = trigger.closest('.project-card');
+            const h3 = card ? card.querySelector('h3') : null;
+
+            if (img) {
+                lightboxImg.src = img.src;
+                if (lightboxCaption && h3) {
+                    lightboxCaption.textContent = h3.textContent;
+                }
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent main page scrolling
+            }
+        });
+    });
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-content-wrapper')) {
+            closeLightbox();
+        }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
 }
