@@ -113,6 +113,12 @@ if (savedTheme === 'dark') {
 
 // Click event for theme switching
 themeToggle.addEventListener('click', () => {
+    // Spin and scale the icon
+    themeToggle.classList.add('rotate-icon');
+    setTimeout(() => {
+        themeToggle.classList.remove('rotate-icon');
+    }, 500);
+
     body.classList.toggle('dark-mode');
 
     if (body.classList.contains('dark-mode')) {
