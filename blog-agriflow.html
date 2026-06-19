@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I Built AgriFlow from Scratch | OM</title>
+    <meta name="description" content="A technical breakdown of building AgriFlow, a comprehensive farm-to-buyer agricultural export management platform.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="blog-detail-page">
+    <div id="real-site">
+        <header>
+            <div class="div-list">
+                <ul class="ul-list" style="transform: rotate(0); gap: 1rem;">
+                    <li>
+                        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> BACK TO HOME</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <main class="blog-detail-container">
+            <article class="blog-article">
+                <div class="blog-meta">
+                    <span class="blog-category">AGRITECH</span>
+                    <span class="blog-read-time">10 MIN READ</span>
+                </div>
+                
+                <h1 class="blog-title">How I Built AgriFlow from Scratch</h1>
+                <p class="blog-subtitle">A technical breakdown of building a full-stack export intelligence platform for agricultural supply chains.</p>
+                
+                <hr class="blog-divider">
+
+                <div class="blog-content">
+                    <h2>The Core Problem</h2>
+                    <p>Agricultural export is a highly fragmented process. Between the harvesting of crops in local fields and the final loading of shipments onto cargo ships, there are dozen of moving parts: quality grading certificates, cold storage bookings, logistics coordination, and customs paperwork. Most of this data is managed via paper logs and WhatsApp groups. I built AgriFlow to connect these elements into a single software platform.</p>
+
+                    <h2>System Architecture</h2>
+                    <p>When designing AgriFlow, I needed a fast backend that could perform strict data validations and handle asynchronous operations (like generating PDF export documents). I chose Python with <strong>FastAPI</strong> for the API layer and <strong>PostgreSQL</strong> as the database.</p>
+
+                    <div class="blog-code-container">
+                        <div class="code-header">
+                            <span>FastAPI Validation Schema (schemas.py)</span>
+                        </div>
+                        <pre><code>from pydantic import BaseModel, Field
+from datetime import datetime
+
+class QualityGradingCreate(BaseModel):
+    crop_type: str = Field(..., example="Grapes")
+    sugar_percentage: float = Field(..., ge=0.0, le=100.0)
+    firmness_score: float = Field(..., ge=1.0, le=10.0)
+    defects_percentage: float = Field(..., ge=0.0, le=100.0)
+    graded_by_user_id: int
+    timestamp: datetime = Field(default_factory=datetime.utcnow)</code></pre>
+                    </div>
+
+                    <h2>Interactive 3D Supply Chain Tracking</h2>
+                    <p>To help users monitor logistics in real time, I integrated <strong>Three.js</strong> on the frontend. The dashboard renders a 3D visual grid representing cold storage capacity, giving warehouse managers an instant look at occupied versus available spots without looking at database rows.</p>
+
+                    <h2>Main Features</h2>
+                    <ul>
+                        <li><strong>Harvest Tracking</strong>: Digitally logs crop quantity, farm source, and harvesting dates immediately.</li>
+                        <li><strong>Quality Grading</strong>: Analyzes fruit/crop parameters and assigns export grades automatically.</li>
+                        <li><strong>Cold Storage Logistics</strong>: Manages temperature thresholds and tracks real-time storage availability.</li>
+                        <li><strong>Export Documentation</strong>: Automatically compiles harvest logs and quality reports into downloadable PDFs for customs clearances.</li>
+                    </ul>
+
+                    <h2>Key Takeaways</h2>
+                    <p>Building AgriFlow taught me how crucial strict database schema design is when handling transactional logistics data. Using PostgreSQL's foreign keys and triggers saved a lot of validation checks on the API layer, while FastAPI's Pydantic schemas kept the data pipeline clean from farm to database.</p>
+                </div>
+            </article>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2026 OM CODES. ALL RIGHTS RESERVED.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

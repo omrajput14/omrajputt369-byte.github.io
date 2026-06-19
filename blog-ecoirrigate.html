@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT + Farming: Building EcoIrrigate | OM</title>
+    <meta name="description" content="A project breakdown of EcoIrrigate, combining ESP8266 microcontrollers with software dashboards for precision irrigation.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="blog-detail-page">
+    <div id="real-site">
+        <header>
+            <div class="div-list">
+                <ul class="ul-list" style="transform: rotate(0); gap: 1rem;">
+                    <li>
+                        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> BACK TO HOME</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <main class="blog-detail-container">
+            <article class="blog-article">
+                <div class="blog-meta">
+                    <span class="blog-category">IOT</span>
+                    <span class="blog-read-time">8 MIN READ</span>
+                </div>
+                
+                <h1 class="blog-title">IoT + Farming: Building EcoIrrigate</h1>
+                <p class="blog-subtitle">Connecting ESP8266 hardware with a React dashboard to automate precision irrigation.</p>
+                
+                <hr class="blog-divider">
+
+                <div class="blog-content">
+                    <h2>The Hardware Setup</h2>
+                    <p>Water is one of the most critical resources on a farm. Most automated irrigation systems are expensive and difficult for small farmers to maintain. I built EcoIrrigate as an accessible, solar-powered precision irrigation controller. The hardware prototype consists of:</p>
+                    <ul>
+                        <li><strong>ESP8266 NodeMCU</strong>: The central Wi-Fi-enabled microcontroller.</li>
+                        <li><strong>Capacitive Soil Moisture Sensors</strong>: Reads moisture levels without corroding in the soil.</li>
+                        <li><strong>Solenoid Valves</strong>: Opens and closes the water lines electronically.</li>
+                        <li><strong>Solar Panels & LiPo Battery</strong>: Keeps the device running off-grid.</li>
+                    </ul>
+
+                    <h2>Real-Time Telemetry and Data Flow</h2>
+                    <p>The ESP8266 controller reads the moisture and battery levels at set intervals. It connects to the local farm Wi-Fi network and streams this telemetry data directly to the server. The data is processed and instantly visible on a real-time web dashboard.</p>
+
+                    <div class="blog-code-container">
+                        <div class="code-header">
+                            <span>ESP8266 Sensor Read & Upload (main.cpp)</span>
+                        </div>
+                        <pre><code>#include &lt;ESP8266WiFi.h&gt;
+#include &lt;ESP8266HTTPClient.h&gt;
+
+const char* ssid = "Farm_WiFi";
+const char* password = "WiFi_Password";
+const char* serverUrl = "http://ecoirrigate.vercel.app/api/telemetry";
+
+void sendTelemetry(int moisture, float battery) {
+    if (WiFi.status() == WL_CONNECTED) {
+        WiFiClient client;
+        HTTPClient http;
+        http.begin(client, serverUrl);
+        http.addHeader("Content-Type", "application/json");
+        
+        String payload = "{\"device_id\":\"node-01\",\"moisture\":" + String(moisture) + ",\"battery\":" + String(battery) + "}";
+        int httpResponseCode = http.POST(payload);
+        http.end();
+    }
+}</code></pre>
+                    </div>
+
+                    <h2>Designing the Digital Twin Dashboard</h2>
+                    <p>For the software UI, I wanted to avoid generic charts and tables. I built a dynamic dashboard where the visual components change depending on the incoming telemetry:
+                    <ul>
+                        <li><strong>Valve Animations</strong>: If the solenoid valve is open, the pipeline in the UI animates flowing water.</li>
+                        <li><strong>Moisture Gradients</strong>: The virtual ground changes color from a dry brown to a rich blue based on the percentage of soil moisture.</li>
+                        <li><strong>Solar Stats</strong>: Tracks solar input in real time to show power generation.</li>
+                    </ul>
+                    This visual setup makes it simple for users to see exactly what is happening in the fields instantly.</p>
+
+                    <h2>Overcoming Power Constraints</h2>
+                    <p>A key challenge was battery longevity. Keeping Wi-Fi active drains a LiPo battery in a few hours. I solved this by configuring the ESP8266 to read sensors, upload the telemetry payload in under 3 seconds, and immediately enter <strong>deep-sleep mode</strong> for 15 minutes, cutting power consumption dramatically.</p>
+                </div>
+            </article>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2026 OM CODES. ALL RIGHTS RESERVED.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
