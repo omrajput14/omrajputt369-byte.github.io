@@ -3234,4 +3234,79 @@ footer p {
     z-index: 9999;
     pointer-events: none;
     display: block;
+}
+
+/* =============================================
+   AVATAR SPEECH BUBBLE
+   ============================================= */
+#about-avatar-card {
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#about-avatar-card:hover {
+    transform: rotate(1deg) scale(1.02);
+}
+
+.avatar-speech-bubble {
+    position: absolute;
+    top: -95px; /* Shifted up slightly to clear the taller portrait card setup */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    background: var(--comic-white);
+    border: 3px solid var(--comic-black);
+    border-radius: 12px;
+    padding: 10px 15px;
+    box-shadow: 5px 5px 0px var(--comic-black);
+    z-index: 50;
+    width: 260px;
+    max-width: 280px;
+    display: block;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+}
+
+.avatar-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 15px 12px 0;
+    border-style: solid;
+    border-color: var(--comic-white) transparent;
+    display: block;
+    width: 0;
+    z-index: 2;
+}
+
+.avatar-speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -19px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 16px 13px 0;
+    border-style: solid;
+    border-color: var(--comic-black) transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+}
+
+.avatar-speech-bubble.active {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+.bubble-text {
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--comic-black);
+    text-align: center;
+    display: block;
+    line-height: 1.3;
 }

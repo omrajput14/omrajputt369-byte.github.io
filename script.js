@@ -36,6 +36,7 @@ window.addEventListener("load", () => {
     initLightbox();
     initSoundEffects();
     initSpiderTrailCanvas();
+    initAvatarSpeechBubble();
 });
 
 
@@ -923,4 +924,55 @@ function initSpiderTrailCanvas() {
         requestAnimationFrame(animate);
     }
     animate();
+}
+
+// =============================================
+// 19. AVATAR COMIC SPEECH BUBBLES
+// =============================================
+function initAvatarSpeechBubble() {
+    const avatarCard = document.getElementById('about-avatar-card');
+    const bubble = document.getElementById('avatar-bubble');
+    const bubbleText = document.getElementById('bubble-text');
+
+    if (!avatarCard || !bubble || !bubbleText) return;
+
+    const quotes = [
+        "I code so farmers don't have to guess.",
+        "Nashik produces over 70% of India's grape exports. That's why I build AgriFlow!",
+        "Bugs in my code are fine; bugs in the crop are a disaster.",
+        "FastAPI validates data payload; I validate Nashik's soil telemetry.",
+        "Did you know? My commits are 500+ and counting across these domains.",
+        "ESP8266 + Deep Sleep = The perfect solar-powered field sensor.",
+        "Type 'spider' anywhere on the page for a glitch anomaly easter egg!",
+        "A database trigger is better than an API validation loop.",
+        "Software engineering is most valuable when it directly supports agriculture.",
+        "I build offline-first interfaces because field networks are unpredictable."
+    ];
+
+    let currentIdx = 0;
+    let hideTimeout = null;
+
+    avatarCard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        // Clear any pending auto-hide timer
+        if (hideTimeout) clearTimeout(hideTimeout);
+
+        // Update bubble text and toggle active state
+        bubbleText.textContent = quotes[currentIdx];
+        bubble.classList.add('active');
+        
+        // Cycle index
+        currentIdx = (currentIdx + 1) % quotes.length;
+        
+        // Auto-hide bubble after 5 seconds
+        hideTimeout = setTimeout(() => {
+            bubble.classList.remove('active');
+        }, 5000);
+    });
+
+    // Dismiss bubble if user clicks anywhere else
+    document.addEventListener('click', () => {
+        bubble.classList.remove('active');
+    });
 }
