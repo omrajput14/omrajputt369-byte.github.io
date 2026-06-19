@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | OM</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --comic-yellow: #FFD200;
+            --comic-red: #ED1C24;
+            --comic-cyan: #00AEEF;
+            --comic-black: #000000;
+            --comic-white: #FFFFFF;
+            --paper-white: #fdfdfd;
+            --halftone: radial-gradient(rgba(0,0,0,0.05) 20%, transparent 20%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--paper-white);
+            background-image: var(--halftone);
+            background-size: 15px 15px;
+            font-family: 'Comic Neue', cursive;
+            overflow: hidden;
+        }
+
+        .container-404 {
+            text-align: center;
+            max-width: 700px;
+            padding: 60px 40px;
+            background: var(--comic-white);
+            border: 4px solid var(--comic-black);
+            box-shadow: 20px 20px 0px var(--comic-red);
+            position: relative;
+        }
+
+        .crash-word {
+            position: absolute;
+            font-family: 'Bangers', cursive;
+            color: var(--comic-red);
+            font-size: 40px;
+            opacity: 0.15;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .crash-1 { top: -20px; left: 20px; transform: rotate(-15deg); }
+        .crash-2 { top: 10px; right: 20px; transform: rotate(10deg); color: var(--comic-cyan); }
+        .crash-3 { bottom: -10px; left: 40%; transform: rotate(-5deg); color: var(--comic-yellow); }
+
+        .error-code {
+            font-family: 'Bangers', cursive;
+            font-size: 160px;
+            color: var(--comic-red);
+            text-shadow: 8px 8px 0px var(--comic-black);
+            line-height: 1;
+            margin-bottom: 10px;
+            animation: glitch 3s infinite;
+        }
+
+        .error-title {
+            font-family: 'Bangers', cursive;
+            font-size: 36px;
+            color: var(--comic-black);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px var(--comic-yellow);
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: var(--comic-black);
+            font-weight: bold;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Bangers', cursive;
+            font-size: 24px;
+            letter-spacing: 1px;
+            padding: 15px 35px;
+            background: var(--comic-yellow);
+            border: 4px solid var(--comic-black);
+            box-shadow: 6px 6px 0px var(--comic-black);
+            color: var(--comic-black);
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .home-btn:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0px var(--comic-black);
+            background: var(--comic-cyan);
+        }
+
+        .home-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px var(--comic-black);
+        }
+
+        .spider-web {
+            position: fixed;
+            top: 0;
+            right: 0;
+            font-size: 120px;
+            opacity: 0.08;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-5px, 2px); }
+            94% { transform: translate(5px, -2px); }
+            96% { transform: translate(-3px, -1px); }
+            98% { transform: translate(3px, 1px); }
+        }
+
+        @media (max-width: 600px) {
+            .container-404 {
+                margin: 20px;
+                padding: 40px 25px;
+                box-shadow: 10px 10px 0px var(--comic-red);
+            }
+
+            .error-code {
+                font-size: 100px;
+                text-shadow: 5px 5px 0px var(--comic-black);
+            }
+
+            .error-title {
+                font-size: 26px;
+            }
+
+            .error-message {
+                font-size: 16px;
+            }
+
+            .home-btn {
+                font-size: 20px;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spider-web">🕸️</div>
+
+    <div class="container-404">
+        <span class="crash-word crash-1">CRASH!</span>
+        <span class="crash-word crash-2">SPLAT!</span>
+        <span class="crash-word crash-3">OOPS!</span>
+
+        <div class="error-code">404</div>
+        <h1 class="error-title">PAGE NOT FOUND IN THIS UNIVERSE!</h1>
+        <p class="error-message">
+            Looks like this page got caught in a web it couldn't escape from. 🕷️<br>
+            The page you're looking for doesn't exist or has been moved.
+        </p>
+        <a href="/" class="home-btn">⚡ BACK TO BASE</a>
+    </div>
+</body>
+</html>

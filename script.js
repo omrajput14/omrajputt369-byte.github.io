@@ -7,6 +7,10 @@
  * 4. Smooth Scrolling
  * 5. Dark Mode Logic
  * 6. Contact Form with EmailJS
+ * 7. Stats Counter Animation
+ * 8. Project Filtering
+ * 9. Scroll-to-Top Button
+ * 10. Staggered Card Animations
  */
 
 // Handle preloader and initial animations on window load
@@ -21,6 +25,10 @@ window.addEventListener("load", () => {
         }, 800); // Delay for branding visibility (reduced from 3000ms for LCP optimization)
     }
     initScrollAnimations();
+    initStatsCounter();
+    initProjectFilter();
+    initScrollToTop();
+    initStaggeredCards();
 });
 
 
@@ -76,6 +84,9 @@ window.addEventListener("scroll", () => {
 // Smooth scroll implementation for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function (e) {
+        // Skip links that are just "#" (like tech stack tags)
+        if (this.getAttribute("href") === "#") return;
+
         e.preventDefault();
         const target = document.querySelector(this.getAttribute("href"));
 
@@ -173,4 +184,147 @@ function showToast(message, type) {
         toast.classList.remove('om-toast-show');
         setTimeout(() => toast.remove(), 400);
     }, 4000);
+}
+
+
+// =============================================
+// 7. STATS COUNTER — Animated Count-Up
+// =============================================
+
+function initStatsCounter() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length === 0) return;
+
+    let hasAnimated = false;
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    // Observe the stats section
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) observer.observe(statsSection);
+
+    function animateCounters() {
+        statNumbers.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const startTime = performance.now();
+
+            function updateCount(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease-out cubic for smooth deceleration
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(eased * target);
+
+                counter.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.textContent = target.toLocaleString();
+                }
+            }
+
+            requestAnimationFrame(updateCount);
+        });
+    }
+}
+
+
+// =============================================
+// 8. PROJECT FILTERING
+// =============================================
+
+function initProjectFilter() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if (filterBtns.length === 0) return;
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+
+            projectCards.forEach(card => {
+                const categories = card.getAttribute('data-category') || '';
+
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.classList.remove('hidden-card');
+                    card.classList.add('show-card');
+                } else {
+                    card.classList.remove('show-card');
+                    card.classList.add('hidden-card');
+                }
+            });
+        });
+    });
+}
+
+
+// =============================================
+// 9. SCROLL-TO-TOP BUTTON
+// =============================================
+
+function initScrollToTop() {
+    const scrollBtn = document.getElementById('scroll-top-btn');
+    if (!scrollBtn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+
+// =============================================
+// 10. STAGGERED CARD ANIMATIONS
+// =============================================
+
+function initStaggeredCards() {
+    const cards = document.querySelectorAll('.stagger-card');
+    if (cards.length === 0) return;
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Find the index of this card among siblings
+                const card = entry.target;
+                const parent = card.parentElement;
+                const siblings = Array.from(parent.querySelectorAll('.stagger-card'));
+                const index = siblings.indexOf(card);
+
+                // Stagger delay: 150ms per card
+                setTimeout(() => {
+                    card.classList.add('stagger-visible');
+                }, index * 150);
+
+                observer.unobserve(card);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
 }
