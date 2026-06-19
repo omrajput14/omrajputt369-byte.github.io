@@ -34,6 +34,10 @@ window.addEventListener("load", () => {
     init3DTilt();
     initAgriTechTerminal();
     initLightbox();
+    initSoundEffects();
+    initSpiderTrailCanvas();
+    initTelemetrySimulator();
+    initAvatarSpeechBubble();
 });
 
 
@@ -467,6 +471,7 @@ function initGlitchMode() {
 
             if (keyBuffer === targetWord) {
                 document.body.classList.add("glitch-active");
+                playSynthSound("glitch");
                 keyBuffer = "";
             }
         }
@@ -474,6 +479,7 @@ function initGlitchMode() {
 
     restabilizeBtn.addEventListener("click", () => {
         document.body.classList.remove("glitch-active");
+        playSynthSound("click");
     });
 }
 
@@ -709,5 +715,378 @@ function initLightbox() {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
             closeLightbox();
         }
+    });
+}
+
+// =============================================
+// 17. SYNTHESIZED SOUND EFFECTS ENGINE
+// =============================================
+let audioCtx = null;
+let soundMuted = true; // Muted by default
+
+function getAudioContext() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    return audioCtx;
+}
+
+function playSynthSound(type) {
+    if (soundMuted) return;
+    try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        
+        osc.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        
+        const now = ctx.currentTime;
+        
+        if (type === 'click') {
+            // Retro 8-bit blip click
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+            gainNode.gain.setValueAtTime(0.1, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+            osc.start(now);
+            osc.stop(now + 0.1);
+        } else if (type === 'hover') {
+            // Soft woodblock tick
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(300, now);
+            gainNode.gain.setValueAtTime(0.05, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } else if (type === 'slide') {
+            // Smooth swoosh/jump slide sound
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.exponentialRampToValueAtTime(600, now + 0.25);
+            gainNode.gain.setValueAtTime(0.08, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+            osc.start(now);
+            osc.stop(now + 0.25);
+        } else if (type === 'glitch') {
+            // Multiverse glitch anomaly static noise/laser
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(80, now);
+            osc.frequency.linearRampToValueAtTime(1500, now + 0.5);
+            
+            // Gain wobbling for glitchy feel
+            gainNode.gain.setValueAtTime(0.15, now);
+            gainNode.gain.setValueAtTime(0.02, now + 0.1);
+            gainNode.gain.setValueAtTime(0.12, now + 0.2);
+            gainNode.gain.setValueAtTime(0.01, now + 0.3);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            
+            osc.start(now);
+            osc.stop(now + 0.5);
+        }
+    } catch (e) {
+        console.warn("Failed to play synthesized audio:", e);
+    }
+}
+
+function initSoundEffects() {
+    const soundBtn = document.getElementById('sound-toggle');
+    if (!soundBtn) return;
+    
+    // Load preference from localStorage if set
+    const savedSound = localStorage.getItem('soundEnabled');
+    if (savedSound === 'true') {
+        soundMuted = false;
+        soundBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+    } else {
+        soundMuted = true;
+        soundBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+    }
+    
+    soundBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        soundMuted = !soundMuted;
+        localStorage.setItem('soundEnabled', !soundMuted);
+        
+        if (soundMuted) {
+            soundBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        } else {
+            soundBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+            playSynthSound('click');
+        }
+    });
+    
+    // Bind click SFX to buttons, nav items, and interactive elements
+    const clickables = document.querySelectorAll('button, a, .filter-btn, .project-card, .blog-card, #about-avatar-card');
+    clickables.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Avoid double triggers if parents are also clickable
+            e.stopPropagation();
+            // Don't play default click if it's the soundBtn itself (already handled)
+            if (item.id === 'sound-toggle') return;
+            
+            if (item.classList.contains('carousel-nav-btn')) {
+                playSynthSound('slide');
+            } else {
+                playSynthSound('click');
+            }
+        });
+        
+        // Bind hover tick sound to navigation items, buttons, and filters
+        if (!window.matchMedia("(pointer: coarse)").matches) {
+            item.addEventListener('mouseenter', () => {
+                if (item.id === 'sound-toggle') return;
+                playSynthSound('hover');
+            });
+        }
+    });
+}
+
+// =============================================
+// 18. SPIDER-VERSE CANVAS CURSOR OVERLAY
+// =============================================
+function initSpiderTrailCanvas() {
+    const canvas = document.getElementById('spider-trail-canvas');
+    if (!canvas) return;
+
+    if (window.matchMedia("(pointer: coarse)").matches) {
+        canvas.style.display = 'none';
+        return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }, { passive: true });
+
+    let mouse = { x: -100, y: -100 };
+    let target = null; // Currently hovered interactive element
+    let particles = [];
+
+    // Track mouse coordinates
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        
+        // Spawn halftone particles on cursor move
+        if (Math.random() < 0.25) {
+            particles.push({
+                x: mouse.x,
+                y: mouse.y,
+                size: Math.random() * 6 + 4,
+                color: Math.random() > 0.5 ? '#E63946' : '#1D3557', // Red or Dark Blue
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                alpha: 1,
+                decay: Math.random() * 0.03 + 0.015
+            });
+        }
+    }, { passive: true });
+
+    // Track hovered elements
+    const hoverables = document.querySelectorAll('a, button, .project-card, .blog-card, #about-avatar-card');
+    hoverables.forEach(elem => {
+        elem.addEventListener('mouseenter', () => {
+            target = elem;
+        });
+        elem.addEventListener('mouseleave', () => {
+            target = null;
+        });
+    });
+
+    function drawWebLine(startX, startY, endX, endY) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        // Draw slightly organic dynamic curve for the web strand
+        const midX = (startX + endX) / 2 + (Math.random() - 0.5) * 10;
+        const midY = (startY + endY) / 2 + (Math.random() - 0.5) * 10;
+        ctx.quadraticCurveTo(midX, midY, endX, endY);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        
+        // Draw small nodes on the line representing spider web glue droplets
+        for (let i = 1; i < 4; i++) {
+            const t = i * 0.25;
+            // Quadratic Bezier interpolation formula: B(t) = (1-t)^2 * P0 + 2(1-t)t * P1 + t^2 * P2
+            const lx = Math.pow(1-t, 2)*startX + 2*(1-t)*t*midX + Math.pow(t, 2)*endX;
+            const ly = Math.pow(1-t, 2)*startY + 2*(1-t)*t*midY + Math.pow(t, 2)*endY;
+            ctx.beginPath();
+            ctx.arc(lx, ly, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Update and draw particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.alpha -= p.decay;
+
+            if (p.alpha <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+            
+            // Outer comic halftone stroke
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Draw web hook snapping line if targeting an element
+        if (target) {
+            const rect = target.getBoundingClientRect();
+            const targetX = rect.left + rect.width / 2;
+            const targetY = rect.top + rect.height / 2;
+            drawWebLine(mouse.x, mouse.y, targetX, targetY);
+        }
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+// =============================================
+// 19. LIVE TELEMETRY SIMULATOR WIDGET
+// =============================================
+function initTelemetrySimulator() {
+    const moistureGauge = document.getElementById('moisture-gauge');
+    const moistureVal = document.getElementById('moisture-val');
+    const tempFill = document.getElementById('temp-fill');
+    const tempVal = document.getElementById('temp-val');
+    const statusText = document.getElementById('telemetry-status-text');
+
+    if (!moistureGauge || !moistureVal || !tempFill || !tempVal || !statusText) return;
+
+    let baseMoisture = 58;
+    let baseTemp = 31.5;
+
+    // SVG Circle Radius is 40. Circumference is 2 * Math.PI * 40 = 251.2
+    const totalCircumference = 251.2;
+
+    function updateTelemetry() {
+        // Natural random walk/fluctuation
+        const moistureDiff = (Math.random() - 0.5) * 3; // +/- 1.5%
+        const tempDiff = (Math.random() - 0.5) * 0.8;    // +/- 0.4°C
+        
+        let moisture = Math.max(10, Math.min(95, baseMoisture + moistureDiff));
+        let temp = Math.max(15, Math.min(45, baseTemp + tempDiff));
+
+        // Update Soil Moisture Dial (Circle dashoffset)
+        // 100% moisture -> stroke-dashoffset = 0
+        // 0% moisture -> stroke-dashoffset = 251.2
+        const offset = totalCircumference - (moisture / 100) * totalCircumference;
+        moistureGauge.style.strokeDashoffset = offset;
+        moistureVal.textContent = `${Math.round(moisture)}%`;
+
+        // Update Field Temperature (Liquid column height)
+        // Map 15°C - 45°C temp range to 10% - 95% height
+        const heightPercent = 10 + ((temp - 15) / 30) * 85;
+        tempFill.style.height = `${heightPercent}%`;
+        tempVal.textContent = `${temp.toFixed(1)}°C`;
+
+        // Update status text with fluctuating sensor node health
+        const nodes = ['NODE-01', 'NODE-02', 'NODE-03'];
+        const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
+        const health = moisture < 40 ? 'CRITICAL (DRY)' : (moisture > 80 ? 'HIGH MOISTURE' : 'OPTIMAL');
+        
+        statusText.textContent = `${randomNode}: ${health}`;
+        const indicator = document.querySelector('.status-indicator');
+        if (indicator) {
+            if (health === 'OPTIMAL') {
+                indicator.style.backgroundColor = '#00cc66';
+                indicator.style.animation = 'pulseGlow 1.2s infinite alternate';
+            } else {
+                indicator.style.backgroundColor = '#ff3333';
+                indicator.style.animation = 'pulseGlowError 0.6s infinite alternate';
+            }
+        }
+    }
+
+    // Set styling for error status keyframes dynamically
+    const styleEl = document.createElement('style');
+    styleEl.innerHTML = `
+        @keyframes pulseGlowError {
+            from { box-shadow: 0 0 2px #ff3333; }
+            to { box-shadow: 0 0 10px #ff3333; }
+        }
+    `;
+    document.head.appendChild(styleEl);
+
+    // Initial update and subsequent interval loop
+    updateTelemetry();
+    setInterval(updateTelemetry, 4000); // Update gauges every 4 seconds
+}
+
+// =============================================
+// 20. AVATAR COMIC SPEECH BUBBLES
+// =============================================
+function initAvatarSpeechBubble() {
+    const avatarCard = document.getElementById('about-avatar-card');
+    const bubble = document.getElementById('avatar-bubble');
+    const bubbleText = document.getElementById('bubble-text');
+
+    if (!avatarCard || !bubble || !bubbleText) return;
+
+    const quotes = [
+        "I code so farmers don't have to guess.",
+        "Nashik produces over 70% of India's grape exports. That's why I build AgriFlow!",
+        "Bugs in my code are fine; bugs in the crop are a disaster.",
+        "FastAPI validates data payload; I validate Nashik's soil telemetry.",
+        "Did you know? My commits are 500+ and counting across these domains.",
+        "ESP8266 + Deep Sleep = The perfect solar-powered field sensor.",
+        "Type 'spider' anywhere on the page for a glitch anomaly easter egg!",
+        "A database trigger is better than an API validation loop.",
+        "Software engineering is most valuable when it directly supports agriculture.",
+        "I build offline-first interfaces because field networks are unpredictable."
+    ];
+
+    let currentIdx = 0;
+    let hideTimeout = null;
+
+    avatarCard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        // Clear any pending auto-hide timer
+        if (hideTimeout) clearTimeout(hideTimeout);
+
+        // Update bubble text and toggle active state
+        bubbleText.textContent = quotes[currentIdx];
+        bubble.classList.add('active');
+        
+        // Cycle index
+        currentIdx = (currentIdx + 1) % quotes.length;
+        
+        // Auto-hide bubble after 5 seconds
+        hideTimeout = setTimeout(() => {
+            bubble.classList.remove('active');
+        }, 5000);
+    });
+
+    // Dismiss bubble if user clicks anywhere else
+    document.addEventListener('click', () => {
+        bubble.classList.remove('active');
     });
 }
