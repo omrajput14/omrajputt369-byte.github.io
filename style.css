@@ -2351,4 +2351,180 @@ footer p {
         font-size: 12px;
         padding: 6px 10px;
     }
+}
+
+/* =============================================
+   BLOG DETAIL PAGES
+   ============================================= */
+.blog-detail-page {
+    background: var(--paper-white);
+    background-image: var(--halftone);
+    background-size: 20px 20px;
+}
+
+.blog-detail-container {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+.blog-article {
+    background: var(--comic-white);
+    border: var(--comic-border);
+    padding: 40px;
+    box-shadow: 12px 12px 0px var(--comic-black);
+    position: relative;
+}
+
+.blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.blog-category {
+    background: var(--comic-cyan);
+    color: var(--comic-black) !important;
+    border: 2px solid var(--comic-black);
+    padding: 4px 12px;
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 2px 2px 0px var(--comic-black);
+}
+
+.blog-read-time {
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+    color: var(--comic-black);
+    letter-spacing: 0.5px;
+}
+
+.blog-title {
+    font-family: 'Bangers', cursive;
+    font-size: 48px;
+    color: var(--comic-red);
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 0px var(--comic-black);
+}
+
+.blog-subtitle {
+    font-family: 'Comic Neue', cursive;
+    font-size: 20px;
+    color: var(--comic-black);
+    line-height: 1.5;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.blog-divider {
+    border: none;
+    border-top: 4px solid var(--comic-black);
+    margin: 20px 0 30px;
+}
+
+.blog-content h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    color: var(--comic-black);
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 3px solid var(--comic-black);
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+.blog-content p {
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--comic-black);
+    margin-bottom: 20px;
+}
+
+.blog-content ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.blog-content li {
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--comic-black);
+    margin-bottom: 8px;
+}
+
+.blog-code-container {
+    background: #1e1e1e;
+    border: var(--comic-border);
+    box-shadow: 6px 6px 0px var(--comic-black);
+    margin: 30px 0;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.code-header {
+    background: var(--comic-yellow);
+    color: var(--comic-black) !important;
+    border-bottom: 3px solid var(--comic-black);
+    padding: 8px 16px;
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.blog-code-container pre {
+    padding: 20px;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.blog-code-container code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #e5c07b;
+    display: block;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Bangers', cursive;
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--comic-white) !important;
+    background: var(--comic-red);
+    border: var(--comic-border);
+    padding: 8px 20px;
+    box-shadow: 4px 4px 0px var(--comic-black);
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--comic-black);
+    background: var(--comic-yellow);
+    color: var(--comic-black) !important;
+}
+
+/* Responsive adjustment for blog details */
+@media (max-width: 600px) {
+    .blog-article {
+        padding: 25px 20px;
+    }
+    
+    .blog-title {
+        font-size: 36px;
+    }
+    
+    .blog-subtitle {
+        font-size: 16px;
+    }
 }
