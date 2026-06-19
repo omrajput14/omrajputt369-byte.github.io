@@ -3111,21 +3111,6 @@ footer p {
     cursor: zoom-in;
 }
 
-/* Magnifying Glass Zoom Lens */
-.zoom-lens {
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 4px solid var(--comic-black);
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.25);
-    background-repeat: no-repeat;
-    pointer-events: none;
-    z-index: 100;
-    transform: translate(-50%, -50%);
-    display: none; /* Controlled by JS */
-}
-
 /* Lightbox overlay container */
 .lightbox-modal {
     position: fixed;
@@ -3205,14 +3190,4 @@ footer p {
     text-align: center;
     max-width: 100%;
     word-wrap: break-word;
-}
-
-/* Hide zoom lens on coarse pointer devices (mobile) to avoid touchscreen glitches */
-@media (pointer: coarse) {
-    .zoom-lens {
-        display: none !important;
-    }
-    .project-img-wrapper {
-        cursor: pointer;
-    }
 }
