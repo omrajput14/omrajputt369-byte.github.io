@@ -1155,6 +1155,10 @@ footer p {
         flex: 0 0 auto;
     }
 
+    .ul-list li.active {
+        transform: none;
+    }
+
     .ul-list li a {
         font-size: 14px;
     }
@@ -2103,17 +2107,7 @@ footer p {
     background: var(--comic-red);
     border: 2px solid var(--comic-black);
     box-shadow: 3px 3px 0px var(--comic-black);
-    animation: learningPulse 2s ease-in-out infinite;
     cursor: default;
-}
-
-.learning-tag:nth-child(2) { animation-delay: 0.3s; }
-.learning-tag:nth-child(3) { animation-delay: 0.6s; }
-.learning-tag:nth-child(4) { animation-delay: 0.9s; }
-
-@keyframes learningPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 .learning-tag:hover {
