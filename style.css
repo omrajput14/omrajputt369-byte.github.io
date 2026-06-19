@@ -3193,36 +3193,6 @@ footer p {
 }
 
 /* =============================================
-   SOUND TOGGLE SPEAKER BUTTON
-   ============================================= */
-.sound-btn {
-    background: var(--comic-yellow);
-    border: var(--comic-border);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 4px 4px 0px var(--comic-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    color: var(--comic-black);
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
-    margin-left: 10px;
-}
-
-.sound-btn:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 2px 2px 0px var(--comic-black);
-}
-
-.sound-btn:active {
-    transform: scale(0.95);
-    box-shadow: 1px 1px 0px var(--comic-black);
-}
-
-/* =============================================
    SPIDER-VERSE CANVAS CURSOR OVERLAY
    ============================================= */
 #spider-trail-canvas {
