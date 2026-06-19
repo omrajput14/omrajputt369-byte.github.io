@@ -2104,7 +2104,7 @@ footer p {
     font-size: 16px;
     letter-spacing: 0.5px;
     color: var(--comic-black);
-    background: var(--comic-red);
+    background: var(--comic-cyan);
     border: 2px solid var(--comic-black);
     box-shadow: 3px 3px 0px var(--comic-black);
     transition: 0.15s;
