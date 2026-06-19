@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
     }
     initScrollAnimations();
     initStatsCounter();
-    initProjectFilter();
+    initProjectCarousel();
     initScrollToTop();
     initStaggeredCards();
     initClickPopups();
@@ -251,36 +251,104 @@ function initStatsCounter() {
 
 
 // =============================================
-// 8. PROJECT FILTERING
+// 8. PROJECT CAROUSEL & FILTERING
 // =============================================
 
-function initProjectFilter() {
+function initProjectCarousel() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
+    const prevBtn = document.getElementById('prev-project-btn');
+    const nextBtn = document.getElementById('next-project-btn');
+    const pageIndicator = document.getElementById('project-page-indicator');
 
-    if (filterBtns.length === 0) return;
+    if (projectCards.length === 0) return;
 
+    let filteredCards = Array.from(projectCards);
+    let currentIndex = 0;
+    let currentFilter = 'all';
+
+    // Initialize display
+    updateCarousel('next');
+
+    // Click handler for filter buttons
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            const filter = btn.getAttribute('data-filter');
-
-            projectCards.forEach(card => {
+            currentFilter = btn.getAttribute('data-filter');
+            
+            // Re-filter cards
+            filteredCards = Array.from(projectCards).filter(card => {
                 const categories = card.getAttribute('data-category') || '';
-
-                if (filter === 'all' || categories.includes(filter)) {
-                    card.classList.remove('hidden-card');
-                    card.classList.add('show-card');
-                } else {
-                    card.classList.remove('show-card');
-                    card.classList.add('hidden-card');
-                }
+                return currentFilter === 'all' || categories.split(' ').includes(currentFilter);
             });
+
+            // Reset current index to first card of the new category
+            currentIndex = 0;
+            updateCarousel('next');
         });
     });
+
+    // Prev/Next slide triggers
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (filteredCards.length <= 1) return;
+            currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+            updateCarousel('prev');
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (filteredCards.length <= 1) return;
+            currentIndex = (currentIndex + 1) % filteredCards.length;
+            updateCarousel('next');
+        });
+    }
+
+    function updateCarousel(direction = 'next') {
+        // Toggle card display states
+        projectCards.forEach(card => {
+            card.classList.remove('active-slide', 'slide-next', 'slide-prev');
+            card.style.display = 'none'; // Ensure fully hidden
+        });
+
+        if (filteredCards.length === 0) {
+            if (pageIndicator) pageIndicator.textContent = "PROJECT 0 OF 0";
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+            return;
+        }
+
+        // Show/hide arrows based on counts
+        if (filteredCards.length <= 1) {
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+        } else {
+            if (prevBtn) prevBtn.style.display = 'flex';
+            if (nextBtn) nextBtn.style.display = 'flex';
+        }
+
+        // Display the active slide
+        const activeCard = filteredCards[currentIndex];
+        if (activeCard) {
+            activeCard.style.display = 'grid'; // Enable layout
+            activeCard.classList.add('active-slide');
+            
+            // Add slide transition direction
+            if (direction === 'next') {
+                activeCard.classList.add('slide-next');
+            } else {
+                activeCard.classList.add('slide-prev');
+            }
+        }
+
+        // Update page indicator text
+        if (pageIndicator) {
+            pageIndicator.textContent = `PROJECT ${currentIndex + 1} OF ${filteredCards.length}`;
+        }
+    }
 }
 
 

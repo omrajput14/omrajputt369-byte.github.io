@@ -346,130 +346,177 @@
                     <button class="filter-btn" data-filter="java">JAVA</button>
                 </div>
 
-                <div class="projects-container">
+                <!-- Project Slider Wrapper -->
+                <div class="projects-carousel-wrapper">
+                    <div class="projects-container slider-mode">
 
-                    <div class="project-card stagger-card" data-category="agritech">
-                        <div class="card-caption">FEATURED</div>
-                        <img src="images/agriflow-thumbnail.jpg" alt="AGRIFLOW (EXPORT INTELLIGENCE PLATFORM)" loading="lazy">
-                        <h3>AGRIFLOW (EXPORT INTELLIGENCE PLATFORM)</h3>
-                        <p>A platform that helps farmers sell their crops to global buyers. It keeps track of harvest batches, crop quality grades, available cold storage slots, and exports paperwork so everything is in one place.</p>
-                        <div class="skills">
-                            <a href="#">REACT</a>
-                            <a href="#">FASTAPI</a>
-                            <a href="#">POSTGRESQL</a>
-                            <a href="#">THREE.JS</a>
-                            <a href="#">TAILWIND</a>
-                            <a href="#">SUPABASE</a>
+                        <!-- Card 1 -->
+                        <div class="project-card stagger-card active-slide" data-category="agritech">
+                            <div class="card-caption">FEATURED</div>
+                            <div class="project-img-wrapper">
+                                <img src="images/agriflow-thumbnail.jpg" alt="AGRIFLOW (EXPORT INTELLIGENCE PLATFORM)" loading="lazy">
+                            </div>
+                            <div class="project-info">
+                                <h3>AGRIFLOW (EXPORT INTELLIGENCE PLATFORM)</h3>
+                                <p>A platform that helps farmers sell their crops to global buyers. It keeps track of harvest batches, crop quality grades, available cold storage slots, and exports paperwork so everything is in one place.</p>
+                                <div class="skills">
+                                    <a href="#">REACT</a>
+                                    <a href="#">FASTAPI</a>
+                                    <a href="#">POSTGRESQL</a>
+                                    <a href="#">THREE.JS</a>
+                                    <a href="#">TAILWIND</a>
+                                    <a href="#">SUPABASE</a>
+                                </div>
+                                <div class="btns">
+                                    <a href="https://github.com/omrajput14/agriflow" target="_blank"
+                                        class="btn"><i class="fab fa-github"></i> GitHub</a>
+                                    <a href="https://agriflow-ten.vercel.app/login" target="_blank"
+                                        class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="btns">
-                            <a href="https://github.com/omrajput14/agriflow" target="_blank"
-                                class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://agriflow-ten.vercel.app/login" target="_blank"
-                                class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+
+                        <!-- Card 2 -->
+                        <div class="project-card stagger-card" data-category="civic">
+                            <div class="card-caption">NEW</div>
+                            <div class="project-img-wrapper">
+                                <img src="images/jal.jpg" alt="JALSETU (MUNICIPAL WATER DISTRIBUTION SYSTEM)" loading="lazy">
+                            </div>
+                            <div class="project-info">
+                                <h3>JALSETU (MUNICIPAL WATER DISTRIBUTION SYSTEM)</h3>
+                                <p>A web dashboard for managing a city's water supply. It tracks reservoir levels, schedules when water is released, lets citizens file complaints, and handles online bill payments.</p>
+                                <div class="skills">
+                                    <a href="#">REACT</a>
+                                    <a href="#">FASTAPI</a>
+                                    <a href="#">POSTGRESQL</a>
+                                    <a href="#">TAILWIND</a>
+                                    <a href="#">SUPABASE</a>
+                                    <a href="#">RAZORPAY</a>
+                                </div>
+                                <div class="btns">
+                                    <a href="https://github.com/omrajput14/jalsetu" target="_blank"
+                                        class="btn"><i class="fab fa-github"></i> GitHub</a>
+                                    <a href="https://jalsetu.vercel.app" target="_blank"
+                                        class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Card 3 -->
+                        <div class="project-card stagger-card" data-category="ml agritech">
+                            <div class="card-caption">ML</div>
+                            <div class="project-img-wrapper">
+                                <img src="images/agroshield.jpg" alt="AgroShield (Crop Protection & Weather Alert System)" loading="lazy">
+                            </div>
+                            <div class="project-info">
+                                <h3>AgroShield (Crop Protection & Weather Alert System)</h3>
+                                <p>A crop protection app that checks local weather telemetry and uses machine learning to predict environmental risks. It sends alerts and controls physical windbreaks to protect fields from storms.</p>
+                                <div class="skills">
+                                    <a href="#">REACT</a>
+                                    <a href="#">FASTAPI</a>
+                                    <a href="#">SCIKIT-LEARN</a>
+                                    <a href="#">SQLALCHEMY</a>
+                                    <a href="#">TWILIO</a>
+                                    <a href="#">TAILWIND</a>
+                                </div>
+                                <div class="btns">
+                                    <a href="https://github.com/omrajput14/agroshield" target="_blank"
+                                        class="btn"><i class="fab fa-github"></i> GitHub</a>
+                                    <a href="https://agroshield10.vercel.app/" target="_blank"
+                                        class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="project-card stagger-card" data-category="ml agritech">
+                            <div class="card-caption">AI</div>
+                            <div class="project-img-wrapper">
+                                <img src="images/vetra.jpg" alt="Vetra (Livestock Disease Diagnosis & Tracking Platform)" loading="lazy">
+                            </div>
+                            <div class="project-info">
+                                <h3>Vetra (Livestock Disease Diagnosis & Tracking Platform)</h3>
+                                <p>An app that helps farmers diagnose sick livestock. It uses Gemini AI to analyze symptoms, shows a map of local disease outbreaks, and tracks safety guidelines to help prevent disease spread.</p>
+                                <div class="skills">
+                                    <a href="#">REACT</a>
+                                    <a href="#">FASTAPI</a>
+                                    <a href="#">GEMINI AI</a>
+                                    <a href="#">MONGODB</a>
+                                    <a href="#">LEAFLET</a>
+                                    <a href="#">PWA</a>
+                                </div>
+                                <div class="btns">
+                                    <a href="https://github.com/omrajput14/animal-health-management-system" target="_blank"
+                                        class="btn"><i class="fab fa-github"></i> GitHub</a>
+                                    <a href="https://animal-health-management-system-x9y.vercel.app/login" target="_blank"
+                                        class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="project-card stagger-card" data-category="iot agritech">
+                            <div class="card-caption">IOT</div>
+                            <div class="project-img-wrapper">
+                                <img src="images/elco1.jpg" alt="EcoIrrigate (Smart Irrigation Telemetry Platform)" loading="lazy">
+                            </div>
+                            <div class="project-info">
+                                <h3>EcoIrrigate (Smart Irrigation Telemetry Platform)</h3>
+                                <p>An irrigation monitoring system that connects physical soil sensors to a web dashboard. It tracks soil moisture, battery levels, and water valves so farmers can see their fields' status remotely.</p>
+                                <div class="skills">
+                                    <a href="#">REACT</a>
+                                    <a href="#">FASTAPI</a>
+                                    <a href="#">SUPABASE</a>
+                                    <a href="#">ESP8266</a>
+                                    <a href="#">BLYNK</a>
+                                    <a href="#">IOT</a>
+                                </div>
+                                <div class="btns">
+                                    <a href="https://github.com/omrajput14/Smart-irrigation-system-" target="_blank"
+                                        class="btn"><i class="fab fa-github"></i> GitHub</a>
+                                    <a href="https://ecoirrigate.vercel.app/" target="_blank"
+                                        class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="project-card stagger-card" data-category="java civic">
+                            <div class="card-caption">JAVA</div>
+                            <div class="project-img-wrapper">
+                                <img src="images/panchayat.jpg" alt="DIGITAL PANCHAYAT (Civic Operations & Governance Platform)" loading="lazy">
+                            </div>
+                            <div class="project-info">
+                                <h3>DIGITAL PANCHAYAT (Civic Operations & Governance Platform)</h3>
+                                <p>A desktop app made for local village offices. It makes it easier to track citizen complaints, schedule community meetings, and export clean PDF reports of village activities.</p>
+                                <div class="skills">
+                                    <a href="#">JAVA</a>
+                                    <a href="#">SWING</a>
+                                    <a href="#">SQLITE</a>
+                                    <a href="#">JDBC</a>
+                                    <a href="#">RBAC</a>
+                                    <a href="#">PDF EXPORT</a>
+                                </div>
+                                <div class="btns">
+                                    <a href="https://github.com/omrajput14/Digital-Panchayat-Management-System" target="_blank"
+                                        class="btn"><i class="fab fa-github"></i> GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="project-card stagger-card" data-category="civic">
-                        <div class="card-caption">NEW</div>
-                        <img src="images/jal.jpg" alt="JALSETU (MUNICIPAL WATER DISTRIBUTION SYSTEM)" loading="lazy">
-                        <h3>JALSETU (MUNICIPAL WATER DISTRIBUTION SYSTEM)</h3>
-                        <p>A web dashboard for managing a city's water supply. It tracks reservoir levels, schedules when water is released, lets citizens file complaints, and handles online bill payments.</p>
-                        <div class="skills">
-                            <a href="#">REACT</a>
-                            <a href="#">FASTAPI</a>
-                            <a href="#">POSTGRESQL</a>
-                            <a href="#">TAILWIND</a>
-                            <a href="#">SUPABASE</a>
-                            <a href="#">RAZORPAY</a>
+                    <!-- Slider Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-nav-btn prev-btn" id="prev-project-btn" aria-label="Previous project">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-indicator-box">
+                            <span id="project-page-indicator">PROJECT 1 OF 6</span>
                         </div>
-                        <div class="btns">
-                            <a href="https://github.com/omrajput14/jalsetu" target="_blank"
-                                class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://jalsetu.vercel.app" target="_blank"
-                                class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card stagger-card" data-category="ml agritech">
-                        <div class="card-caption">ML</div>
-                        <img src="images/agroshield.jpg" alt="AgroShield (Crop Protection & Weather Alert System)" loading="lazy">
-                        <h3>AgroShield (Crop Protection & Weather Alert System)</h3>
-                        <p>A crop protection app that checks local weather telemetry and uses machine learning to predict environmental risks. It sends alerts and controls physical windbreaks to protect fields from storms.</p>
-                        <div class="skills">
-                            <a href="#">REACT</a>
-                            <a href="#">FASTAPI</a>
-                            <a href="#">SCIKIT-LEARN</a>
-                            <a href="#">SQLALCHEMY</a>
-                            <a href="#">TWILIO</a>
-                            <a href="#">TAILWIND</a>
-                        </div>
-                        <div class="btns">
-                            <a href="https://github.com/omrajput14/agroshield" target="_blank"
-                                class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://agroshield10.vercel.app/" target="_blank"
-                                class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card stagger-card" data-category="ml agritech">
-                        <div class="card-caption">AI</div>
-                        <img src="images/vetra.jpg" alt="Vetra (Livestock Disease Diagnosis & Tracking Platform)" loading="lazy">
-                        <h3>Vetra (Livestock Disease Diagnosis & Tracking Platform)</h3>
-                        <p>An app that helps farmers diagnose sick livestock. It uses Gemini AI to analyze symptoms, shows a map of local disease outbreaks, and tracks safety guidelines to help prevent disease spread.</p>
-                        <div class="skills">
-                            <a href="#">REACT</a>
-                            <a href="#">FASTAPI</a>
-                            <a href="#">GEMINI AI</a>
-                            <a href="#">MONGODB</a>
-                            <a href="#">LEAFLET</a>
-                            <a href="#">PWA</a>
-                        </div>
-                        <div class="btns">
-                            <a href="https://github.com/omrajput14/animal-health-management-system" target="_blank"
-                                class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://animal-health-management-system-x9y.vercel.app/login" target="_blank"
-                                class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card stagger-card" data-category="iot agritech">
-                        <div class="card-caption">IOT</div>
-                        <img src="images/elco1.jpg" alt="EcoIrrigate (Smart Irrigation Telemetry Platform)" loading="lazy">
-                        <h3>EcoIrrigate (Smart Irrigation Telemetry Platform)</h3>
-                        <p>An irrigation monitoring system that connects physical soil sensors to a web dashboard. It tracks soil moisture, battery levels, and water valves so farmers can see their fields' status remotely.</p>
-                        <div class="skills">
-                            <a href="#">REACT</a>
-                            <a href="#">FASTAPI</a>
-                            <a href="#">SUPABASE</a>
-                            <a href="#">ESP8266</a>
-                            <a href="#">BLYNK</a>
-                            <a href="#">IOT</a>
-                        </div>
-                        <div class="btns">
-                            <a href="https://github.com/omrajput14/Smart-irrigation-system-" target="_blank"
-                                class="btn"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://ecoirrigate.vercel.app/" target="_blank"
-                                class="btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                        </div>
-                    </div>
-
-                    <div class="project-card stagger-card" data-category="java civic">
-                        <div class="card-caption">JAVA</div>
-                        <img src="images/panchayat.jpg" alt="DIGITAL PANCHAYAT (Civic Operations & Governance Platform)" loading="lazy">
-                        <h3>DIGITAL PANCHAYAT (Civic Operations & Governance Platform)</h3>
-                        <p>A desktop app made for local village offices. It makes it easier to track citizen complaints, schedule community meetings, and export clean PDF reports of village activities.</p>
-                        <div class="skills">
-                            <a href="#">JAVA</a>
-                            <a href="#">SWING</a>
-                            <a href="#">SQLITE</a>
-                            <a href="#">JDBC</a>
-                            <a href="#">RBAC</a>
-                            <a href="#">PDF EXPORT</a>
-                        </div>
-                        <div class="btns">
-                            <a href="https://github.com/omrajput14/Digital-Panchayat-Management-System" target="_blank"
-                                class="btn"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
+                        <button class="carousel-nav-btn next-btn" id="next-project-btn" aria-label="Next project">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </section>
