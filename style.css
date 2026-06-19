@@ -2123,19 +2123,6 @@ footer p {
     box-shadow: 5px 5px 0px var(--comic-black);
 }
 
-/* =============================================
-   GITHUB STATS
-   ============================================= */
-.github-stats {
-    margin-top: 20px;
-    padding-top: 15px;
-}
-
-.github-stats img {
-    max-width: 100%;
-    border: var(--comic-border);
-    box-shadow: 6px 6px 0px var(--comic-black);
-}
 
 /* =============================================
    SCROLL TO TOP BUTTON
@@ -2347,9 +2334,6 @@ footer p {
         font-size: 18px;
     }
 
-    .github-stats img {
-        box-shadow: 4px 4px 0px var(--comic-black);
-    }
 
     .learning-tag {
         font-size: 14px;
