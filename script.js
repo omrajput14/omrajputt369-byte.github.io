@@ -867,30 +867,15 @@ function initSpiderTrailCanvas() {
 
     let mouse = { x: -100, y: -100 };
     let target = null; // Currently hovered interactive element
-    let particles = [];
 
     // Track mouse coordinates
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-        
-        // Spawn halftone particles on cursor move
-        if (Math.random() < 0.25) {
-            particles.push({
-                x: mouse.x,
-                y: mouse.y,
-                size: Math.random() * 6 + 4,
-                color: Math.random() > 0.5 ? '#E63946' : '#1D3557', // Red or Dark Blue
-                vx: (Math.random() - 0.5) * 2,
-                vy: (Math.random() - 0.5) * 2,
-                alpha: 1,
-                decay: Math.random() * 0.03 + 0.015
-            });
-        }
     }, { passive: true });
 
     // Track hovered elements
-    const hoverables = document.querySelectorAll('a, button, .project-card, .blog-card, #about-avatar-card');
+    const hoverables = document.querySelectorAll('a, button, .project-card, .blog-card');
     hoverables.forEach(elem => {
         elem.addEventListener('mouseenter', () => {
             target = elem;
@@ -926,32 +911,6 @@ function initSpiderTrailCanvas() {
 
     function animate() {
         ctx.clearRect(0, 0, width, height);
-
-        // Update and draw particles
-        for (let i = particles.length - 1; i >= 0; i--) {
-            const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-            p.alpha -= p.decay;
-
-            if (p.alpha <= 0) {
-                particles.splice(i, 1);
-                continue;
-            }
-
-            ctx.save();
-            ctx.globalAlpha = p.alpha;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
-            
-            // Outer comic halftone stroke
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-            ctx.restore();
-        }
 
         // Draw web hook snapping line if targeting an element
         if (target) {
