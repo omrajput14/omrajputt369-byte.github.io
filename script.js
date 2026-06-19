@@ -29,6 +29,10 @@ window.addEventListener("load", () => {
     initProjectFilter();
     initScrollToTop();
     initStaggeredCards();
+    initClickPopups();
+    initGlitchMode();
+    init3DTilt();
+    initAgriTechTerminal();
 });
 
 
@@ -333,4 +337,258 @@ function initStaggeredCards() {
     }, { threshold: 0.1 });
 
     cards.forEach(card => observer.observe(card));
+}
+
+// =============================================
+// 11. COMIC CLICK POPUP EFFECT
+// =============================================
+
+function initClickPopups() {
+    const words = ["POW!", "ZAP!", "BAM!", "BOOM!", "CRASH!", "CLICK!", "OH!", "WOW!", "COOL!", "ZING!", "DATA!", "CODE!"];
+    const colors = ["pop-yellow", "pop-red", "pop-cyan"];
+
+    document.addEventListener("click", (e) => {
+        // Skip for interactive elements
+        const target = e.target;
+        if (target.closest('a') || target.closest('button') || target.closest('.filter-btn') || target.closest('input') || target.closest('textarea')) {
+            return;
+        }
+
+        const x = e.pageX;
+        const y = e.pageY;
+
+        const pop = document.createElement("div");
+        pop.classList.add("comic-pop");
+        
+        const randomWord = words[Math.floor(Math.random() * words.length)];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        pop.classList.add(randomColor);
+        pop.textContent = randomWord;
+
+        pop.style.left = `${x}px`;
+        pop.style.top = `${y}px`;
+
+        document.body.appendChild(pop);
+
+        setTimeout(() => {
+            pop.remove();
+        }, 800);
+    });
+}
+
+// =============================================
+// 12. SPIDER-VERSE GLITCH EASTER EGG
+// =============================================
+
+function initGlitchMode() {
+    let keyBuffer = "";
+    const targetWord = "spider";
+    const overlay = document.getElementById("glitch-overlay");
+    const restabilizeBtn = document.getElementById("restabilize-btn");
+
+    if (!overlay || !restabilizeBtn) return;
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key.length === 1) {
+            keyBuffer += e.key.toLowerCase();
+            if (keyBuffer.length > targetWord.length) {
+                keyBuffer = keyBuffer.substring(keyBuffer.length - targetWord.length);
+            }
+
+            if (keyBuffer === targetWord) {
+                document.body.classList.add("glitch-active");
+                keyBuffer = "";
+            }
+        }
+    });
+
+    restabilizeBtn.addEventListener("click", () => {
+        document.body.classList.remove("glitch-active");
+    });
+}
+
+// =============================================
+// 13. 3D PARALLAX CARD TILT
+// =============================================
+
+function init3DTilt() {
+    const cards = document.querySelectorAll('.project-card');
+    if (cards.length === 0) return;
+
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const xc = rect.width / 2;
+            const yc = rect.height / 2;
+            
+            const dx = x - xc;
+            const dy = y - yc;
+            
+            const tiltX = -(dy / yc) * 12;
+            const tiltY = (dx / xc) * 12;
+            
+            card.style.transition = 'transform 0.05s ease-out';
+            card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03) translateZ(10px)`;
+            card.style.zIndex = '5';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s';
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateZ(0)';
+            card.style.zIndex = '1';
+        });
+    });
+}
+
+// =============================================
+// 14. AGRITECH TERMINAL SIMULATOR
+// =============================================
+
+function initAgriTechTerminal() {
+    const input = document.getElementById("console-input");
+    const body = document.getElementById("console-body");
+    if (!input || !body) return;
+
+    let history = [];
+    let historyIndex = -1;
+
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            const commandText = input.value.trim();
+            input.value = "";
+
+            if (commandText === "") return;
+
+            history.push(commandText);
+            historyIndex = history.length;
+
+            writeLine(`om@agritech:~$ ${commandText}`, "text-cyan");
+
+            processCommand(commandText.toLowerCase());
+
+            body.scrollTop = body.scrollHeight;
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex--;
+                input.value = history[historyIndex];
+            }
+        } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (historyIndex < history.length - 1) {
+                historyIndex++;
+                input.value = history[historyIndex];
+            } else {
+                historyIndex = history.length;
+                input.value = "";
+            }
+        }
+    });
+
+    const wrapper = document.querySelector(".console-wrapper");
+    if (wrapper) {
+        wrapper.addEventListener("click", () => {
+            input.focus();
+        });
+    }
+
+    function writeLine(text, className = "") {
+        const line = document.createElement("div");
+        line.className = `console-line ${className}`;
+        line.innerHTML = text;
+        body.appendChild(line);
+    }
+
+    function processCommand(cmd) {
+        const parts = cmd.split(" ");
+        const base = parts[0];
+
+        switch (base) {
+            case "help":
+                writeLine("Available commands:");
+                writeLine("  <span class='text-highlight'>help</span>         - Display this menu");
+                writeLine("  <span class='text-highlight'>status</span>       - Check system diagnostics & network state");
+                writeLine("  <span class='text-highlight'>agriflow</span>     - Run simulated grape export validation");
+                writeLine("  <span class='text-highlight'>ecoirrigate</span>   - Read real-time node telemetry logs");
+                writeLine("  <span class='text-highlight'>neofetch</span>     - Display system info & ascii art logo");
+                writeLine("  <span class='text-highlight'>clear</span>        - Clear screen terminal logs");
+                break;
+
+            case "clear":
+                body.innerHTML = "";
+                break;
+
+            case "status":
+                writeLine("System Diagnostics:", "text-highlight");
+                writeLine("  [DATABASE] PostgreSQL Local Cluster - <span class='text-success'>ONLINE (ping 8ms)</span>");
+                writeLine("  [API LAYER] FastAPI Server Engine - <span class='text-success'>ONLINE (Uptime: 45d)</span>");
+                writeLine("  [IOT BRIDGE] Mosquitto MQTT Broker - <span class='text-success'>LISTENING (port 1883)</span>");
+                writeLine("  [HARDWARE] 3 active ESP8266 telemetry nodes registered.");
+                writeLine("All systems operational. Network integrity stable.", "text-success");
+                break;
+
+            case "agriflow":
+                writeLine("Connecting to AgriFlow export engine...", "text-cyan");
+                setTimeout(() => {
+                    writeLine("Executing export protocol: grapes_batch_2026_09...");
+                    writeLine("  [CHECK 1] Sugar percentage: 17.5% - <span class='text-success'>PASSED (Target > 16%)</span>");
+                    body.scrollTop = body.scrollHeight;
+                }, 300);
+                setTimeout(() => {
+                    writeLine("  [CHECK 2] Chemical residue test - <span class='text-success'>PASSED (0.0ppb detected)</span>");
+                    writeLine("  [CHECK 3] Cold Storage logging - <span class='text-success'>PASSED (2.4°C baseline)</span>");
+                    body.scrollTop = body.scrollHeight;
+                }, 600);
+                setTimeout(() => {
+                    writeLine("Batch complies with APEDA standards. Export certificate generated successfully!", "text-success");
+                    writeLine("Validation report: <a href='blog-agriflow.html' class='text-highlight'>Read AgriFlow Story &rarr;</a>");
+                    body.scrollTop = body.scrollHeight;
+                }, 900);
+                break;
+
+            case "ecoirrigate":
+                writeLine("Opening telemetry stream from EcoIrrigate node-01...", "text-cyan");
+                setTimeout(() => {
+                    writeLine("  [node-01] Wi-Fi: <span class='text-success'>CONNECTED (RSSI -68dBm)</span>");
+                    body.scrollTop = body.scrollHeight;
+                }, 200);
+                setTimeout(() => {
+                    writeLine("  [node-01] Soil Moisture Level: 42% (<span class='text-cyan'>Soil Condition: Optimal</span>)");
+                    writeLine("  [node-01] Battery Voltage: 3.82V - <span class='text-success'>GOOD (Solar Charging Enabled)</span>");
+                    body.scrollTop = body.scrollHeight;
+                }, 500);
+                setTimeout(() => {
+                    writeLine("  [node-01] Solenoid Valve: <span class='text-error'>CLOSED (Trigger threshold: &lt; 35%)</span>");
+                    writeLine("Telemetry sync complete. Entering deep-sleep for 15 minutes.", "text-success");
+                    body.scrollTop = body.scrollHeight;
+                }, 850);
+                break;
+
+            case "neofetch":
+                writeLine("  ____  __  __ ", "text-cyan");
+                writeLine(" / __ \\|  \\/  |", "text-cyan");
+                writeLine("| |  | | \\  / |", "text-cyan");
+                writeLine("| |  | | |\\/| |", "text-cyan");
+                writeLine("| |__| | |  | |", "text-cyan");
+                writeLine(" \\____/|_|  |_|", "text-cyan");
+                writeLine("---------------");
+                writeLine("OS: <span class='text-highlight'>Om OS v1.0.0</span>");
+                writeLine("Host: <span class='text-highlight'>omrajput.me</span>");
+                writeLine("Shell: <span class='text-highlight'>agritech-bash</span>");
+                writeLine("Terminal: <span class='text-highlight'>Web Console Sim</span>");
+                writeLine("Focus: <span class='text-highlight'>Backend Systems & AgriTech Hardware</span>");
+                writeLine("GitHub: <a href='https://github.com/omrajput14' target='_blank' class='text-highlight'>github.com/omrajput14</a>");
+                break;
+
+            default:
+                writeLine(`Command not found: '${base}'. Type <span class='text-highlight'>help</span> for a list of commands.`, "text-error");
+                break;
+        }
+    }
 }

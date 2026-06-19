@@ -2535,4 +2535,343 @@ footer p {
     .blog-subtitle {
         font-size: 16px;
     }
+}
+
+/* =============================================
+   COMIC CLICK POPUP EFFECT
+   ============================================= */
+.comic-pop {
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Bangers', cursive;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 
+        3px 3px 0px var(--comic-black),
+        -1px -1px 0px var(--comic-black),
+        1px -1px 0px var(--comic-black),
+        -1px 1px 0px var(--comic-black),
+        1px 1px 0px var(--comic-black);
+    z-index: 99999;
+    user-select: none;
+    animation: comicPopUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.comic-pop.pop-yellow {
+    color: var(--comic-yellow);
+}
+.comic-pop.pop-red {
+    color: var(--comic-red);
+}
+.comic-pop.pop-cyan {
+    color: var(--comic-cyan);
+}
+
+@keyframes comicPopUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-20deg);
+        opacity: 0;
+    }
+    15% {
+        transform: translate(-50%, -50%) scale(1.3) rotate(15deg);
+        opacity: 1;
+    }
+    30% {
+        transform: translate(-50%, -50%) scale(1) rotate(-5deg);
+        opacity: 1;
+    }
+    80% {
+        transform: translate(-50%, -100%) scale(1) rotate(-5deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -130%) scale(0.8) rotate(-15deg);
+        opacity: 0;
+    }
+}
+
+/* =============================================
+   SPIDER-VERSE GLITCH MODE EASTER EGG
+   ============================================= */
+.glitch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    backdrop-filter: blur(10px);
+}
+
+.glitch-active .glitch-overlay {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.glitch-box {
+    background: var(--comic-white);
+    border: var(--comic-border);
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 15px 15px 0px var(--comic-red);
+    transform: rotate(-1deg);
+    animation: glitchBoxPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes glitchBoxPop {
+    0% { transform: scale(0.8) rotate(5deg); }
+    100% { transform: scale(1) rotate(-1deg); }
+}
+
+.glitch-title {
+    font-family: 'Bangers', cursive;
+    font-size: 38px;
+    color: var(--comic-red);
+    margin-bottom: 20px;
+    position: relative;
+    animation: chromatic-shake 0.2s infinite;
+}
+
+.glitch-text {
+    font-family: 'Comic Neue', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--comic-black);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.glitch-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    padding: 12px 30px;
+    background: var(--comic-cyan);
+    color: var(--comic-black);
+    border: var(--comic-border);
+    box-shadow: 5px 5px 0px var(--comic-black);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.glitch-btn:hover {
+    transform: translate(-3px, -3px) rotate(1deg);
+    box-shadow: 8px 8px 0px var(--comic-black);
+    background: var(--comic-yellow);
+}
+
+.glitch-btn:active {
+    transform: scale(0.95);
+}
+
+/* Chromatic aberration on main titles when glitch is active */
+.glitch-active h1, 
+.glitch-active h2, 
+.glitch-active h3 {
+    animation: chromatic-shake 0.15s infinite !important;
+}
+
+@keyframes chromatic-shake {
+    0% { text-shadow: -2px 0 var(--comic-cyan), 2px 0 var(--comic-red); }
+    25% { text-shadow: 2px -1px var(--comic-cyan), -2px 1px var(--comic-red); }
+    50% { text-shadow: -1px 2px var(--comic-cyan), 1px -2px var(--comic-red); }
+    75% { text-shadow: 2px 2px var(--comic-cyan), -2px -2px var(--comic-red); }
+    100% { text-shadow: -2px 0 var(--comic-cyan), 2px 0 var(--comic-red); }
+}
+
+/* Spider-Verse body distortion overlay */
+.glitch-active::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 255, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+    z-index: 99999;
+}
+
+/* =============================================
+   AGRITECH SYSTEM CONSOLE WIDGET
+   ============================================= */
+.console-section {
+    margin: 80px auto;
+    max-width: 1200px;
+    padding: 60px;
+    background: var(--paper-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.console-section h2 {
+    font-family: "Bangers", cursive;
+    font-size: 60px;
+    padding-bottom: 10px;
+    color: var(--comic-black);
+    text-shadow: 3px 3px 0px var(--comic-cyan);
+}
+
+.console-section p {
+    padding-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--comic-black);
+}
+
+.console-section hr {
+    width: 150px;
+    height: 8px;
+    border: none;
+    background: var(--comic-red);
+    margin-bottom: 40px;
+}
+
+.console-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #0f141c;
+    border: var(--comic-border);
+    box-shadow: 12px 12px 0px var(--comic-black);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.console-header {
+    background: #171d26;
+    border-bottom: 3px solid var(--comic-black);
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    position: relative;
+}
+
+.console-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.console-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--comic-black);
+}
+
+.console-dots .dot.red { background: var(--comic-red); }
+.console-dots .dot.yellow { background: var(--comic-yellow); }
+.console-dots .dot.green { background: #00ff66; }
+
+.console-title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #8fa1b3;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.console-body {
+    padding: 25px;
+    height: 300px;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    color: #dfe1e8;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.console-line {
+    margin-bottom: 8px;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+
+.console-line .text-highlight {
+    color: var(--comic-yellow);
+    font-weight: bold;
+}
+
+.console-line .text-success {
+    color: #00ff66;
+}
+
+.console-line .text-error {
+    color: var(--comic-red);
+}
+
+.console-line .text-cyan {
+    color: var(--comic-cyan);
+}
+
+.console-input-line {
+    background: #0f141c;
+    border-top: 3px solid var(--comic-black);
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.console-prompt {
+    color: var(--comic-cyan);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#console-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--comic-yellow);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* Custom Scrollbar for console body */
+.console-body::-webkit-scrollbar {
+    width: 10px;
+}
+.console-body::-webkit-scrollbar-track {
+    background: #0f141c;
+}
+.console-body::-webkit-scrollbar-thumb {
+    background: var(--comic-yellow);
+    border: 2px solid var(--comic-black);
+}
+
+@media (max-width: 768px) {
+    .console-section {
+        padding: 40px 15px;
+        margin: 40px auto;
+    }
+    
+    .console-section h2 {
+        font-size: 40px;
+    }
+    
+    .console-body {
+        height: 250px;
+        padding: 15px;
+    }
 }
