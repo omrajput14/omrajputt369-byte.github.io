@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base: 255 255 255;
+  --surface: 244 244 245;
+  --border: 228 228 231;
+  --ink: 9 9 11;
+  --muted: 82 82 91;
+  --accent: 79 70 229;
+  --status: 16 185 129;
+}
+
+.dark {
+  --base: 9 9 11;
+  --surface: 20 20 23;
+  --border: 39 39 42;
+  --ink: 250 250 250;
+  --muted: 161 161 170;
+  --accent: 129 140 248;
+  --status: 52 211 153;
+}
+
+* {
+  border-color: rgb(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--base));
+  color: rgb(var(--ink));
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: rgb(var(--accent) / 0.3);
+}
+
+.status-dot {
+  box-shadow: 0 0 0 3px rgb(var(--status) / 0.15);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* thin scrollbar for horizontally scrolling tech marquees / tables */
+.scroll-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgb(var(--border));
+  border-radius: 4px;
+}
