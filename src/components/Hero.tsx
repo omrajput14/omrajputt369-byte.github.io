@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Github } from 'lucide-react';
-import { Container, LinkButton, StatusDot } from './ui';
+import { Container, LinkButton } from './ui';
 
 const techLine = ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'Flutter', 'React', 'Cloud', 'AI'];
 
@@ -24,19 +24,6 @@ export function Hero() {
       />
 
       <Container className="relative py-24">
-        <motion.div
-          initial={reduce ? undefined : { opacity: 0, y: 12 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-xs text-muted"
-        >
-          <span className="inline-flex items-center gap-2 whitespace-nowrap">
-            <StatusDot />
-            Currently building <span className="text-ink">VETRA</span>
-          </span>
-          <span className="hidden whitespace-nowrap text-muted sm:inline">— Veterinary Operating System</span>
-        </motion.div>
-
         <h1 className="font-display max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl md:text-6xl">
           {words.map((word, i) => (
             <motion.span
