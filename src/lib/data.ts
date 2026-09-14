@@ -12,7 +12,7 @@ export const categoryLabels: Record<Category, string> = {
   iot: 'IoT',
 };
 
-export type ProjectIcon = 'vetra' | 'website' | 'landmark';
+export type ProjectIcon = 'vetra' | 'website' | 'landmark' | 'dashboard';
 
 export interface Project {
   id: string;
@@ -49,9 +49,9 @@ export interface Screen {
   caption: string;
 }
 
-// Real app screens, farmer and vet sides. Drop files at these exact paths
+// Real app screens, farmer/vet/gov sides. Drop files at these exact paths
 // under public/images/vetra-app/ — see README for the full list.
-export const vetraScreens: { farmer: Screen[]; vet: Screen[] } = {
+export const vetraScreens: { farmer: Screen[]; vet: Screen[]; gov: Screen[] } = {
   farmer: [
     { src: '/images/vetra-app/farmer-1-home.png', caption: 'Home — savings from early detection' },
     { src: '/images/vetra-app/farmer-2-animals.png', caption: 'My Animals' },
@@ -67,9 +67,31 @@ export const vetraScreens: { farmer: Screen[]; vet: Screen[] } = {
     { src: '/images/vetra-app/vet-4-outbreak-map.png', caption: 'Outbreak Surveillance Map' },
     { src: '/images/vetra-app/vet-5-profile.png', caption: 'Veterinarian Profile' },
   ],
+  gov: [
+    { src: '/images/vetra-app/gov-1-overview.png', caption: 'Command Overview' },
+    { src: '/images/vetra-app/gov-2-surveillance-map.png', caption: 'Live GIS Surveillance Map' },
+    { src: '/images/vetra-app/gov-3-outbreaks.png', caption: 'Outbreak Intelligence' },
+    { src: '/images/vetra-app/gov-4-analytics.png', caption: 'Epidemiological Analytics' },
+    { src: '/images/vetra-app/gov-5-reports.png', caption: 'Field Surveillance Reports' },
+    { src: '/images/vetra-app/gov-6-vaccination.png', caption: 'Vaccination Intelligence' },
+    { src: '/images/vetra-app/gov-7-labs.png', caption: 'Laboratory Surveillance' },
+    { src: '/images/vetra-app/gov-8-protocols.png', caption: 'Biosecurity Protocols' },
+    { src: '/images/vetra-app/gov-9-settings.png', caption: 'System Configuration' },
+  ],
 };
 
 export const projects: Project[] = [
+  {
+    id: 'vetra-gov-dashboard',
+    name: 'VETRA — GOVERNMENT DASHBOARD',
+    tagline: 'Statewide Epidemiological Surveillance Command Center',
+    description:
+      'The government-facing side of VETRA — live PostGIS outbreak mapping, a weighted multi-signal risk engine, vaccination coverage tracking, lab/vet diagnostic verification pipelines and a statewide biosecurity protocol registry.',
+    categories: ['healthcare', 'civictech', 'backend'],
+    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'JWT', 'Open-Meteo'],
+    github: 'https://github.com/omrajput14/pashu-sathi',
+    icon: 'dashboard',
+  },
   {
     id: 'vetra-website',
     name: 'VETRA — WEBSITE',

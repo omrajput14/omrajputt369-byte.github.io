@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Github, Globe, Landmark, Stethoscope } from 'lucide-react';
+import { ArrowUpRight, Github, Globe, Landmark, LayoutDashboard, Stethoscope } from 'lucide-react';
 import { allProjects, categoryLabels, type Category, type ProjectIcon } from '../lib/data';
 import { Container, Chip, SectionHeading } from './ui';
 import { Reveal } from './Reveal';
@@ -9,6 +9,7 @@ const icons: Record<ProjectIcon, typeof Stethoscope> = {
   vetra: Stethoscope,
   website: Globe,
   landmark: Landmark,
+  dashboard: LayoutDashboard,
 };
 
 function ProjectBanner({ icon }: { icon: ProjectIcon }) {
