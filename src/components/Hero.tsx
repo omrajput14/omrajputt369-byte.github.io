@@ -55,7 +55,7 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center gap-4"
         >
           <LinkButton href="#vetra" variant="primary">
-            View Architecture <ArrowUpRight size={16} />
+            See the System <ArrowUpRight size={16} />
           </LinkButton>
           <LinkButton href="https://github.com/omrajput14" target="_blank" rel="noreferrer" variant="secondary">
             <Github size={16} /> GitHub
