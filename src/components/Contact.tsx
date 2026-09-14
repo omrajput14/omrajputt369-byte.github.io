@@ -35,7 +35,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-24 sm:py-32">
       <Container>
-        <SectionHeading index="08" eyebrow="Contact" title="Build something useful." description="I'm interested in building software around real-world problems, infrastructure and data-driven systems." />
+        <SectionHeading index="07" eyebrow="Contact" title="Build something useful." description="I'm interested in building software around real-world problems, infrastructure and data-driven systems." />
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal className="space-y-6">

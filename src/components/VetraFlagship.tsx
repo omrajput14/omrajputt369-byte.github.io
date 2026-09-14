@@ -28,10 +28,7 @@ export function VetraFlagship() {
             <p className="mt-4 text-muted leading-relaxed">{vetra.description}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <LinkButton href={vetra.live} target="_blank" rel="noreferrer" variant="primary">
-                Live System <ArrowUpRight size={16} />
-              </LinkButton>
-              <LinkButton href={vetra.github} target="_blank" rel="noreferrer" variant="secondary">
+              <LinkButton href={vetra.github} target="_blank" rel="noreferrer" variant="primary">
                 <Github size={16} /> GitHub
               </LinkButton>
               <button
@@ -44,16 +41,14 @@ export function VetraFlagship() {
               </button>
             </div>
 
-            {vetra.extraLink && (
-              <a
-                href={vetra.extraLink.href}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-block font-mono text-xs text-muted underline decoration-border underline-offset-4 hover:text-accent"
-              >
-                {vetra.extraLink.label} ↗
-              </a>
-            )}
+            <a
+              href="https://vetra.co.in"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-muted underline decoration-border underline-offset-4 hover:text-accent"
+            >
+              Product website <ArrowUpRight size={12} />
+            </a>
 
             <motion.div
               initial={false}

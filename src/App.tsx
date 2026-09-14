@@ -6,7 +6,6 @@ import { Systems } from './components/Systems';
 import { Engineering } from './components/Engineering';
 import { BuildLog } from './components/BuildLog';
 import { About } from './components/About';
-import { EngineeringNotes } from './components/EngineeringNotes';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
@@ -22,7 +21,6 @@ export default function App() {
         <Engineering />
         <BuildLog />
         <About />
-        <EngineeringNotes />
         <Contact />
       </main>
       <Footer />

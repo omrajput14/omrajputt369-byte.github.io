@@ -12,6 +12,8 @@ export const categoryLabels: Record<Category, string> = {
   iot: 'IoT',
 };
 
+export type ProjectIcon = 'vetra' | 'website' | 'landmark';
+
 export interface Project {
   id: string;
   name: string;
@@ -21,8 +23,7 @@ export interface Project {
   stack: string[];
   github?: string;
   live?: string;
-  extraLink?: { label: string; href: string };
-  image?: string;
+  icon: ProjectIcon;
   featured?: boolean;
 }
 
@@ -39,70 +40,33 @@ export const vetra: Project = {
     'Firebase Cloud Messaging', 'Leaflet', 'Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure',
   ],
   github: 'https://github.com/omrajput14/pashu-sathii',
-  live: 'https://vetra.co.in',
-  extraLink: { label: 'Website source', href: 'https://github.com/omrajput14/Vetra-website' },
+  icon: 'vetra',
   featured: true,
 };
 
 export const projects: Project[] = [
   {
-    id: 'agriflow',
-    name: 'AGRIFLOW',
-    tagline: 'Export Intelligence Platform',
+    id: 'vetra-website',
+    name: 'VETRA — WEBSITE',
+    tagline: 'Product site for VETRA',
     description:
-      "Helps farmers sell crops to global buyers — tracking harvest batches, quality grades, cold-storage slots and export paperwork in one place.",
-    categories: ['agritech'],
-    stack: ['React', 'FastAPI', 'PostgreSQL', 'Three.js', 'Tailwind', 'Supabase'],
-    github: 'https://github.com/omrajput14/agriflow',
-    live: 'https://agriflow-ten.vercel.app/login',
-    image: 'images/agriflow.png',
-  },
-  {
-    id: 'jalsetu',
-    name: 'JALSETU',
-    tagline: 'Municipal Water Distribution System',
-    description:
-      "A civic dashboard for a city's water supply — reservoir levels, distribution scheduling, citizen complaints and online bill payments.",
-    categories: ['civictech', 'backend'],
-    stack: ['React', 'FastAPI', 'PostgreSQL', 'Tailwind', 'Supabase', 'Razorpay'],
-    github: 'https://github.com/omrajput14/jalsetu',
-    live: 'https://jalsetu.vercel.app',
-    image: 'images/jalsetu.png',
-  },
-  {
-    id: 'agroshield',
-    name: 'AGROSHIELD',
-    tagline: 'Crop Protection & Weather Alert System',
-    description:
-      'Reads local weather telemetry and uses machine learning to forecast environmental risk to crops, sending alerts and triggering physical windbreak controls.',
-    categories: ['agritech', 'ai'],
-    stack: ['React', 'FastAPI', 'scikit-learn', 'SQLAlchemy', 'Twilio', 'Tailwind'],
-    github: 'https://github.com/omrajput14/agroshield',
-    live: 'https://agroshield10.vercel.app/',
-    image: 'images/agroshield.png',
-  },
-  {
-    id: 'ecoirrigate',
-    name: 'ECOIRRIGATE',
-    tagline: 'Smart Irrigation Telemetry Platform',
-    description:
-      "Connects physical soil sensors to a live dashboard — soil moisture, battery levels and valve state, so farmers can monitor fields remotely.",
-    categories: ['agritech', 'iot'],
-    stack: ['React', 'FastAPI', 'Supabase', 'ESP8266', 'Blynk'],
-    github: 'https://github.com/omrajput14/Smart-irrigation-system-',
-    live: 'https://ecoirrigate.vercel.app/',
-    image: 'images/ecoirrigate.png',
+      "The public face of VETRA — where farmers, veterinarians and government partners first meet the platform, ahead of rollout.",
+    categories: ['healthcare'],
+    stack: [],
+    github: 'https://github.com/omrajput14/Vetra-website',
+    live: 'https://vetra.co.in',
+    icon: 'website',
   },
   {
     id: 'digital-panchayat',
     name: 'DIGITAL PANCHAYAT',
     tagline: 'Civic Operations & Governance Platform',
     description:
-      'A desktop application for local village offices — citizen complaint tracking, community meeting scheduling and clean PDF activity reports.',
+      'Desktop software for village governance offices — built on Java and SQLite, so it keeps working without a reliable internet connection. Structured complaint records, meeting scheduling and audit-ready PDF reports.',
     categories: ['civictech', 'backend'],
     stack: ['Java', 'Swing', 'SQLite', 'JDBC', 'RBAC'],
     github: 'https://github.com/omrajput14/Digital-Panchayat-Management-System',
-    image: 'images/panchayat.png',
+    icon: 'landmark',
   },
 ];
 
@@ -200,39 +164,6 @@ export const buildLog: BuildLogEntry[] = [
     title: 'VETRA',
     tag: 'Systems engineering',
     description: 'Flutter app + Spring Boot backend + PostGIS spatial disease surveillance for vets, farmers and government dashboards.',
-  },
-];
-
-export interface Note {
-  title: string;
-  description: string;
-  readTime: string;
-  tag: string;
-  href: string;
-}
-
-// Real, existing write-ups — kept as-is rather than inventing new essays.
-export const notes: Note[] = [
-  {
-    title: 'How I Built AgriFlow from Scratch',
-    description: 'Architecture decisions, tech trade-offs and lessons learned building a full export management platform.',
-    readTime: '10 min read',
-    tag: 'AgriTech',
-    href: '/legacy/blog-agriflow.html',
-  },
-  {
-    title: 'IoT + Farming: Building EcoIrrigate',
-    description: 'Connecting ESP8266 hardware to a React dashboard for real-time precision irrigation.',
-    readTime: '8 min read',
-    tag: 'IoT',
-    href: '/legacy/blog-ecoirrigate.html',
-  },
-  {
-    title: 'Why I Build for Rural India',
-    description: 'The motivation behind every project — growing up in Nashik and using code to bridge the agriculture tech gap.',
-    readTime: '6 min read',
-    tag: 'Context',
-    href: '/legacy/blog-rural-india.html',
   },
 ];
 

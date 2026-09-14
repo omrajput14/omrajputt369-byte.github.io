@@ -1,14 +1,44 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Github } from 'lucide-react';
-import { allProjects, categoryLabels, type Category } from '../lib/data';
+import { ArrowUpRight, Github, Globe, Landmark, Stethoscope } from 'lucide-react';
+import { allProjects, categoryLabels, type Category, type ProjectIcon } from '../lib/data';
 import { Container, Chip, SectionHeading } from './ui';
 import { Reveal } from './Reveal';
 
-const filters: Array<Category | 'all'> = ['all', 'agritech', 'civictech', 'healthcare', 'backend', 'ai', 'iot'];
+const icons: Record<ProjectIcon, typeof Stethoscope> = {
+  vetra: Stethoscope,
+  website: Globe,
+  landmark: Landmark,
+};
+
+function ProjectBanner({ icon }: { icon: ProjectIcon }) {
+  const Icon = icons[icon];
+  return (
+    <div
+      className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-border bg-canvas"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgb(var(--border)) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--border)) 1px, transparent 1px)',
+        backgroundSize: '28px 28px',
+      }}
+    >
+      <Icon
+        size={40}
+        strokeWidth={1.25}
+        className="text-muted transition-transform duration-500 group-hover:scale-110 group-hover:text-accent"
+      />
+    </div>
+  );
+}
 
 export function Projects() {
   const [filter, setFilter] = useState<Category | 'all'>('all');
+
+  const activeCategories = useMemo(
+    () => Array.from(new Set(allProjects.flatMap((p) => p.categories))) as Category[],
+    []
+  );
+  const filters: Array<Category | 'all'> = ['all', ...activeCategories];
 
   const visible = allProjects.filter((p) => filter === 'all' || p.categories.includes(filter));
 
@@ -22,21 +52,23 @@ export function Projects() {
           description="Real, shipped software — not demos. Each one solves a specific problem end to end."
         />
 
-        <div className="mb-10 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects by category">
-          {filters.map((f) => (
-            <button
-              key={f}
-              role="tab"
-              aria-selected={filter === f}
-              onClick={() => setFilter(f)}
-              className={`rounded-md px-3.5 py-2 font-mono text-xs uppercase tracking-wide transition-colors ${
-                filter === f ? 'bg-ink text-canvas' : 'border border-border text-muted hover:text-ink hover:border-accent/40'
-              }`}
-            >
-              {f === 'all' ? 'All' : categoryLabels[f]}
-            </button>
-          ))}
-        </div>
+        {filters.length > 2 && (
+          <div className="mb-10 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects by category">
+            {filters.map((f) => (
+              <button
+                key={f}
+                role="tab"
+                aria-selected={filter === f}
+                onClick={() => setFilter(f)}
+                className={`rounded-md px-3.5 py-2 font-mono text-xs uppercase tracking-wide transition-colors ${
+                  filter === f ? 'bg-ink text-canvas' : 'border border-border text-muted hover:text-ink hover:border-accent/40'
+                }`}
+              >
+                {f === 'all' ? 'All' : categoryLabels[f]}
+              </button>
+            ))}
+          </div>
+        )}
 
         <motion.div layout className="grid gap-6 sm:grid-cols-2">
           {visible.map((project) => (
@@ -49,36 +81,20 @@ export function Projects() {
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="group relative overflow-hidden rounded-lg border border-border bg-surface transition-colors hover:border-accent/40"
             >
-              {project.image && (
-                <div className="relative aspect-[16/10] overflow-hidden border-b border-border">
-                  <img
-                    src={`/${project.image}`}
-                    alt={`${project.name} interface`}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                </div>
-              )}
-              {!project.image && (
-                <div className="flex aspect-[16/10] items-center justify-center border-b border-border bg-canvas font-display text-4xl font-semibold text-border">
-                  {project.name.slice(0, 2)}
-                </div>
-              )}
+              <ProjectBanner icon={project.icon} />
 
               <div className="p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-display text-lg font-semibold">{project.name}</h3>
-                    <p className="font-mono text-xs text-accent mt-1">{project.tagline}</p>
-                  </div>
-                </div>
+                <h3 className="font-display text-lg font-semibold">{project.name}</h3>
+                <p className="font-mono text-xs text-accent mt-1">{project.tagline}</p>
                 <p className="mt-3 text-sm text-muted leading-relaxed">{project.description}</p>
 
-                <div className="mt-4 flex flex-wrap gap-1.5 group">
-                  {project.stack.slice(0, 6).map((s) => (
-                    <Chip key={s}>{s}</Chip>
-                  ))}
-                </div>
+                {project.stack.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-1.5 group">
+                    {project.stack.slice(0, 6).map((s) => (
+                      <Chip key={s}>{s}</Chip>
+                    ))}
+                  </div>
+                )}
 
                 <div className="mt-5 flex items-center gap-4 border-t border-border pt-4">
                   {project.github && (
