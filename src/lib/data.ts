@@ -35,7 +35,7 @@ export const vetra: Project = {
     'Digital infrastructure connecting farmers, veterinarians and government disease surveillance through longitudinal animal records, veterinary workflows and spatial outbreak intelligence.',
   categories: ['healthcare', 'backend', 'ai'],
   stack: [
-    'Flutter', 'Dart', 'React', 'TypeScript', 'Java', 'Spring Boot', 'REST APIs',
+    'Flutter', 'Dart', 'Java', 'Spring Boot', 'REST APIs',
     'PostgreSQL', 'PostGIS', 'Redis', 'SQLite', 'Gemini API', 'Open-Meteo',
     'Firebase Cloud Messaging', 'Leaflet', 'Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure',
   ],
@@ -134,7 +134,7 @@ export const systems: SystemCategory[] = [
 export const engineering: SystemCategory[] = [
   { title: 'Backend', description: '', items: ['Java', 'Spring Boot', 'Python', 'FastAPI', 'REST APIs', 'JWT'] },
   { title: 'Data', description: '', items: ['PostgreSQL', 'PostGIS', 'MongoDB', 'Redis', 'SQLite'] },
-  { title: 'Frontend', description: '', items: ['React', 'TypeScript', 'Flutter', 'Dart', 'Tailwind CSS'] },
+  { title: 'Frontend', description: '', items: ['React', 'Flutter', 'Dart', 'Tailwind CSS'] },
   { title: 'Infrastructure', description: '', items: ['Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure', 'Supabase'] },
   { title: 'AI / Data', description: '', items: ['Python', 'Gemini API', 'scikit-learn', 'Open-Meteo'] },
 ];
