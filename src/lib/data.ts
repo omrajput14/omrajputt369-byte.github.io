@@ -44,6 +44,31 @@ export const vetra: Project = {
   featured: true,
 };
 
+export interface Screen {
+  src: string;
+  caption: string;
+}
+
+// Real app screens, farmer and vet sides. Drop files at these exact paths
+// under public/images/vetra-app/ — see README for the full list.
+export const vetraScreens: { farmer: Screen[]; vet: Screen[] } = {
+  farmer: [
+    { src: '/images/vetra-app/farmer-1-home.png', caption: 'Home — savings from early detection' },
+    { src: '/images/vetra-app/farmer-2-animals.png', caption: 'My Animals' },
+    { src: '/images/vetra-app/farmer-3-alerts.png', caption: 'Health Alerts' },
+    { src: '/images/vetra-app/farmer-4-vets.png', caption: 'Nearby Vets Directory' },
+    { src: '/images/vetra-app/farmer-5-outbreak-map.png', caption: 'Outbreak Surveillance Map' },
+    { src: '/images/vetra-app/farmer-6-profile.png', caption: 'Farmer Profile' },
+  ],
+  vet: [
+    { src: '/images/vetra-app/vet-1-dashboard.png', caption: 'Vet Dashboard' },
+    { src: '/images/vetra-app/vet-2-requests.png', caption: 'Incoming Clinical Requests' },
+    { src: '/images/vetra-app/vet-3-requests-completed.png', caption: 'Completed Requests' },
+    { src: '/images/vetra-app/vet-4-outbreak-map.png', caption: 'Outbreak Surveillance Map' },
+    { src: '/images/vetra-app/vet-5-profile.png', caption: 'Veterinarian Profile' },
+  ],
+};
+
 export const projects: Project[] = [
   {
     id: 'vetra-website',

@@ -4,6 +4,7 @@ import { ArrowUpRight, ChevronDown, Github } from 'lucide-react';
 import { vetra } from '../lib/data';
 import { Container, Chip, LinkButton, SectionHeading } from './ui';
 import { Reveal } from './Reveal';
+import { AppShowcase } from './AppShowcase';
 
 const flow = [
   { label: 'Farmer / Vet', detail: 'Field entry point' },
@@ -88,6 +89,8 @@ export function VetraFlagship() {
             </div>
           </Reveal>
         </div>
+
+        <AppShowcase />
       </Container>
     </section>
   );
