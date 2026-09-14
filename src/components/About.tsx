@@ -10,8 +10,8 @@ export function About() {
           <SectionHeading index="06" eyebrow="About" title="About" />
           <Reveal className="space-y-5 max-w-2xl text-base sm:text-lg text-muted leading-relaxed">
             <p>
-              I'm a CSE/Data Science student and software builder focused on backend engineering, system design and
-              real-world digital infrastructure.
+              I'm a CSE/Data Science student and systems engineer, focused on architecture, system design and
+              real-world digital infrastructure more than any one layer of the stack.
             </p>
             <p>
               I enjoy taking messy real-world problems and turning them into structured systems — from APIs and

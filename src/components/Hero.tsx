@@ -44,8 +44,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.55 }}
           className="mt-6 max-w-xl text-lg text-muted"
         >
-          Backend engineer and systems builder focused on architecture, data, cloud infrastructure and software for
-          real-world environments.
+          Systems engineer and architect focused on backend design, data and cloud infrastructure for real-world
+          environments.
         </motion.p>
 
         <motion.div
@@ -55,7 +55,7 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center gap-4"
         >
           <LinkButton href="#vetra" variant="primary">
-            Explore Vetra <ArrowUpRight size={16} />
+            View Architecture <ArrowUpRight size={16} />
           </LinkButton>
           <LinkButton href="https://github.com/omrajput14" target="_blank" rel="noreferrer" variant="secondary">
             <Github size={16} /> GitHub

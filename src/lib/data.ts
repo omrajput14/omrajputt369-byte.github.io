@@ -32,8 +32,8 @@ export const vetra: Project = {
   name: 'VETRA',
   tagline: 'Veterinary Operating System',
   description:
-    'Digital infrastructure connecting farmers, veterinarians and government disease surveillance through longitudinal animal records, veterinary workflows and spatial outbreak intelligence.',
-  categories: ['healthcare', 'backend', 'ai'],
+    'Digital infrastructure connecting farmers, veterinarians and a government dashboard for disease surveillance — longitudinal animal records, veterinary workflows and spatial outbreak intelligence.',
+  categories: ['healthcare', 'civictech', 'backend', 'ai'],
   stack: [
     'Flutter', 'Dart', 'Java', 'Spring Boot', 'REST APIs',
     'PostgreSQL', 'PostGIS', 'Redis', 'SQLite', 'Gemini API', 'Open-Meteo',
@@ -132,11 +132,11 @@ export const systems: SystemCategory[] = [
 ];
 
 export const engineering: SystemCategory[] = [
-  { title: 'Backend', description: '', items: ['Java', 'Spring Boot', 'Python', 'FastAPI', 'REST APIs', 'JWT'] },
+  { title: 'Backend', description: '', items: ['Java', 'Spring Boot', 'FastAPI', 'REST APIs', 'JWT'] },
   { title: 'Data', description: '', items: ['PostgreSQL', 'PostGIS', 'MongoDB', 'Redis', 'SQLite'] },
   { title: 'Frontend', description: '', items: ['React', 'Flutter', 'Dart', 'Tailwind CSS'] },
   { title: 'Infrastructure', description: '', items: ['Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure', 'Supabase'] },
-  { title: 'AI / Data', description: '', items: ['Python', 'Gemini API', 'scikit-learn', 'Open-Meteo'] },
+  { title: 'AI / Data', description: '', items: ['Gemini API', 'scikit-learn', 'Open-Meteo'] },
 ];
 
 export interface Metric {
