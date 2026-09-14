@@ -54,10 +54,6 @@ body {
   background: rgb(var(--accent) / 0.3);
 }
 
-.status-dot {
-  box-shadow: 0 0 0 3px rgb(var(--status) / 0.15);
-}
-
 .text-balance {
   text-wrap: balance;
 }

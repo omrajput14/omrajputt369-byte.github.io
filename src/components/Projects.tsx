@@ -88,9 +88,11 @@ export function Projects() {
                 <p className="font-mono text-xs text-accent mt-1">{project.tagline}</p>
                 <p className="mt-3 text-sm text-muted leading-relaxed">{project.description}</p>
 
-                {project.stack.length > 0 && (
+                {/* Only show stack chips when the full list fits — a truncated
+                    subset reads as "that's the whole stack", which it isn't. */}
+                {project.stack.length > 0 && project.stack.length <= 6 && (
                   <div className="mt-4 flex flex-wrap gap-1.5 group">
-                    {project.stack.slice(0, 6).map((s) => (
+                    {project.stack.map((s) => (
                       <Chip key={s}>{s}</Chip>
                     ))}
                   </div>

@@ -78,5 +78,5 @@ export function Chip({ children, className = '' }: { children: ReactNode; classN
 }
 
 export function StatusDot({ className = '' }: { className?: string }) {
-  return <span className={`status-dot inline-block h-2 w-2 rounded-full bg-[rgb(var(--status))] ${className}`} />;
+  return <span className={`inline-block h-2 w-2 rounded-full bg-[rgb(var(--status))] ${className}`} />;
 }

@@ -148,7 +148,7 @@ export interface Metric {
 
 // Sourced from the previous site's own stat counters — not invented.
 export const metrics: Metric[] = [
-  { value: '500', numeric: 500, suffix: '+', label: 'GitHub Commits' },
+  { value: '1700', numeric: 1700, suffix: '+', label: 'GitHub Commits' },
   { value: '6', numeric: 6, suffix: '+', label: 'Systems Built' },
   { value: '3', numeric: 3, suffix: '', label: 'Domains' },
 ];
@@ -164,26 +164,6 @@ export const buildLog: BuildLogEntry[] = [
     title: 'Digital Panchayat',
     tag: 'First system',
     description: 'Java + SQLite desktop app for local villagers to file complaints and generate report PDFs.',
-  },
-  {
-    title: 'EcoIrrigate',
-    tag: 'First hardware system',
-    description: 'ESP8266 soil-moisture sensors reporting to a live web dashboard — first hardware + software integration.',
-  },
-  {
-    title: 'AgroShield',
-    tag: 'AI/ML experiments',
-    description: 'A weather-risk forecasting model for crops, plus an early Gemini-AI livestock health checker.',
-  },
-  {
-    title: 'JalSetu',
-    tag: 'End-to-end civic platform',
-    description: 'Water distribution scheduling, citizen complaints and online bill payments in one dashboard.',
-  },
-  {
-    title: 'AgriFlow',
-    tag: 'Flagship web platform',
-    description: 'Export intelligence platform connecting farmers to global buyers, with a 3D shipment-tracking map.',
   },
   {
     title: 'VETRA',

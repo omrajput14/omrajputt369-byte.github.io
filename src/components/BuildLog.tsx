@@ -6,7 +6,7 @@ export function BuildLog() {
   return (
     <section id="buildlog" className="py-24 sm:py-32">
       <Container>
-        <SectionHeading index="05" eyebrow="Progression" title="Build log" description="Six systems, in order." />
+        <SectionHeading index="05" eyebrow="Progression" title="Build log" description="From a village desktop app to a real veterinary operating system." />
 
         <ol className="relative border-l border-border pl-8">
           {buildLog.map((entry, i) => (
