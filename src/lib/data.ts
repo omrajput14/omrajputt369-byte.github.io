@@ -125,34 +125,6 @@ export interface SystemCategory {
   items: string[];
 }
 
-export const systems: SystemCategory[] = [
-  {
-    title: 'Backend Systems',
-    description: 'REST APIs, authentication and modular service architecture.',
-    items: ['FastAPI', 'Spring Boot', 'REST APIs', 'JWT Auth', 'Node.js', 'Express'],
-  },
-  {
-    title: 'Data Systems',
-    description: 'Relational, spatial and in-memory data layers.',
-    items: ['PostgreSQL', 'PostGIS', 'MongoDB', 'Redis', 'SQLite'],
-  },
-  {
-    title: 'Mobile Systems',
-    description: 'Offline-first apps with location and push messaging.',
-    items: ['Flutter', 'Dart', 'Firebase Cloud Messaging', 'Leaflet', 'GPS'],
-  },
-  {
-    title: 'Intelligent Systems',
-    description: 'AI-assisted workflows and forecasting models.',
-    items: ['Gemini API', 'scikit-learn', 'Open-Meteo', 'Risk scoring'],
-  },
-  {
-    title: 'Infrastructure',
-    description: 'Deployment, CI and cloud hosting.',
-    items: ['Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure', 'Supabase', 'Vercel'],
-  },
-];
-
 export const engineering: SystemCategory[] = [
   { title: 'Backend', description: '', items: ['Java', 'Spring Boot', 'FastAPI', 'REST APIs', 'JWT'] },
   { title: 'Data', description: '', items: ['PostgreSQL', 'PostGIS', 'MongoDB', 'Redis', 'SQLite'] },
@@ -215,7 +187,6 @@ export const emailjs = {
 export const nav = [
   { label: 'Home', href: '#home' },
   { label: 'Work', href: '#work' },
-  { label: 'Systems', href: '#systems' },
   { label: 'Engineering', href: '#engineering' },
   { label: 'About', href: '#about' },
   { label: 'Build Log', href: '#buildlog' },

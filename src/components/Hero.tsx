@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Github } from 'lucide-react';
+import { ArrowUpRight, Github, Linkedin } from 'lucide-react';
 import { Container, LinkButton } from './ui';
+import { social } from '../lib/data';
 
 const techLine = ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'Flutter', 'React', 'Cloud', 'AI'];
 
@@ -59,6 +60,9 @@ export function Hero() {
           </LinkButton>
           <LinkButton href="https://github.com/omrajput14" target="_blank" rel="noreferrer" variant="secondary">
             <Github size={16} /> GitHub
+          </LinkButton>
+          <LinkButton href={social.linkedin} target="_blank" rel="noreferrer" variant="secondary">
+            <Linkedin size={16} /> LinkedIn
           </LinkButton>
         </motion.div>
 

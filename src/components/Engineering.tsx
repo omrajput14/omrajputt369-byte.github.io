@@ -7,7 +7,7 @@ export function Engineering() {
   return (
     <section id="engineering" className="border-y border-border bg-surface/40 py-24 sm:py-32">
       <Container>
-        <SectionHeading index="04" eyebrow="Stack" title="Engineering" />
+        <SectionHeading index="03" eyebrow="Stack" title="Engineering" />
 
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {engineering.map((group, i) => (

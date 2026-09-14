@@ -7,7 +7,7 @@ export function About() {
     <section id="about" className="py-24 sm:py-32">
       <Container className="grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
         <div>
-          <SectionHeading index="06" eyebrow="About" title="About" />
+          <SectionHeading index="05" eyebrow="About" title="About" />
           <Reveal className="space-y-5 max-w-2xl text-base sm:text-lg text-muted leading-relaxed">
             <p>
               I'm a CSE/Data Science student and systems engineer, focused on architecture, system design and

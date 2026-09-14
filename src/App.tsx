@@ -2,7 +2,6 @@ import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { VetraFlagship } from './components/VetraFlagship';
 import { Projects } from './components/Projects';
-import { Systems } from './components/Systems';
 import { Engineering } from './components/Engineering';
 import { BuildLog } from './components/BuildLog';
 import { About } from './components/About';
@@ -17,7 +16,6 @@ export default function App() {
         <Hero />
         <VetraFlagship />
         <Projects />
-        <Systems />
         <Engineering />
         <BuildLog />
         <About />
