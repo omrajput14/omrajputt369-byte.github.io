@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger } from '../lib/lenis';
 import { projects } from '../lib/data';
+import { Cover } from './Cover';
 
 // Where each flying card sits in the frame (left%, top%) — spread around the
 // edges so the horizontally-scrolling titles stay readable in the middle.
@@ -71,15 +72,11 @@ export function FeaturedWork() {
           <span className="t-mono">[ {projects.length} ]</span>
         </div>
         <div className="flex flex-col gap-10">
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <a key={p.id} href={p.live ?? p.github} target="_blank" rel="noreferrer" className="block">
-              {p.image ? (
-                <div className="aspect-[16/10] overflow-hidden rounded-sm"><img src={p.image} alt={p.name} /></div>
-              ) : (
-                <div className="flex aspect-[16/10] items-end rounded-sm bg-fg p-6 text-bg">
-                  <span className="t-display text-4xl">{p.name}</span>
-                </div>
-              )}
+              <div className="overflow-hidden rounded-lg">
+                {p.image ? <div className="aspect-[16/10]"><img src={p.image} alt={p.name} /></div> : <Cover project={p} index={i} />}
+              </div>
               <div className="mt-3 flex items-baseline justify-between gap-4">
                 <h3 className="t-display text-3xl">{p.name}</h3>
                 <span className="t-mono text-right">{p.tagline}</span>
@@ -112,17 +109,10 @@ export function FeaturedWork() {
             href={p.live ?? p.github}
             target="_blank"
             rel="noreferrer"
-            className="absolute w-[24vw] max-w-[380px] overflow-hidden rounded-sm shadow-2xl will-change-transform"
+            className="absolute w-[24vw] max-w-[380px] overflow-hidden rounded-lg shadow-2xl will-change-transform"
             style={{ left: `${SLOTS[i % SLOTS.length][0]}%`, top: `${SLOTS[i % SLOTS.length][1]}%`, transformStyle: 'preserve-3d' }}
           >
-            {p.image ? (
-              <div className="aspect-[16/10]"><img src={p.image} alt={p.name} /></div>
-            ) : (
-              <div className="flex aspect-[16/10] flex-col justify-end bg-fg p-5 text-bg">
-                <span className="t-mono text-accent">{p.tagline}</span>
-                <span className="t-display mt-2 text-4xl">{p.name}</span>
-              </div>
-            )}
+            {p.image ? <div className="aspect-[16/10]"><img src={p.image} alt={p.name} /></div> : <Cover project={p} index={i} />}
           </a>
         ))}
       </div>

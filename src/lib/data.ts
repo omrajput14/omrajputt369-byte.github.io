@@ -30,6 +30,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'vetra',
+    image: '/images/vetra-app/gov-2-surveillance-map.png',
     name: 'VETRA',
     tagline: 'Veterinary Operating System',
     description:
@@ -46,6 +47,7 @@ export const projects: Project[] = [
   },
   {
     id: 'vetra-gov',
+    image: '/images/vetra-app/gov-1-overview.png',
     name: 'VETRA — Government Dashboard',
     tagline: 'Statewide Epidemiological Surveillance',
     description:
@@ -57,7 +59,6 @@ export const projects: Project[] = [
   },
   {
     id: 'agriflow',
-    image: '/images/agriflow.png',
     name: 'AgriFlow',
     tagline: 'Export Intelligence Platform',
     description:
@@ -69,7 +70,6 @@ export const projects: Project[] = [
   },
   {
     id: 'jalsetu',
-    image: '/images/jalsetu.png',
     name: 'JalSetu',
     tagline: 'Municipal Water Distribution',
     description:
@@ -81,7 +81,6 @@ export const projects: Project[] = [
   },
   {
     id: 'agroshield',
-    image: '/images/agroshield.png',
     name: 'AgroShield',
     tagline: 'Crop Protection & Weather Alerts',
     description:
@@ -93,7 +92,6 @@ export const projects: Project[] = [
   },
   {
     id: 'ecoirrigate',
-    image: '/images/ecoirrigate.png',
     name: 'EcoIrrigate',
     tagline: 'Smart Irrigation Telemetry',
     description:
@@ -105,7 +103,6 @@ export const projects: Project[] = [
   },
   {
     id: 'digital-panchayat',
-    image: '/images/panchayat.png',
     name: 'Digital Panchayat',
     tagline: 'Civic Operations & Governance',
     description:
@@ -118,45 +115,13 @@ export const projects: Project[] = [
 
 export const vetra = projects[0];
 
-/** Real screenshots used for the hero cycle and the flying work cards. */
-export const workImages = projects.filter((p) => p.image).map((p) => p.image!);
+/** Real VETRA Government Dashboard screens, cycled in the hero. */
+export const heroScreens = [
+  'gov-1-overview', 'gov-2-surveillance-map', 'gov-3-outbreaks', 'gov-4-analytics', 'gov-5-reports',
+  'gov-6-vaccination', 'gov-7-labs', 'gov-8-protocols', 'gov-9-biosecurity', 'gov-10-settings',
+].map((f) => `/images/vetra-app/${f}.png`);
 
 
-export interface Screen {
-  src: string;
-  caption: string;
-}
-
-// Real app screens. Drop files at these exact paths under
-// public/images/vetra-app/ — see README for the full list.
-export const vetraScreens: { farmer: Screen[]; vet: Screen[]; gov: Screen[] } = {
-  farmer: [
-    { src: '/images/vetra-app/farmer-1-home.png', caption: 'Home — savings from early detection' },
-    { src: '/images/vetra-app/farmer-2-animals.png', caption: 'My Animals' },
-    { src: '/images/vetra-app/farmer-3-alerts.png', caption: 'Health Alerts' },
-    { src: '/images/vetra-app/farmer-4-vets.png', caption: 'Nearby Vets Directory' },
-    { src: '/images/vetra-app/farmer-5-outbreak-map.png', caption: 'Outbreak Surveillance Map' },
-    { src: '/images/vetra-app/farmer-6-profile.png', caption: 'Farmer Profile' },
-  ],
-  vet: [
-    { src: '/images/vetra-app/vet-1-dashboard.png', caption: 'Vet Dashboard' },
-    { src: '/images/vetra-app/vet-2-requests.png', caption: 'Incoming Clinical Requests' },
-    { src: '/images/vetra-app/vet-3-requests-completed.png', caption: 'Completed Requests' },
-    { src: '/images/vetra-app/vet-4-outbreak-map.png', caption: 'Outbreak Surveillance Map' },
-    { src: '/images/vetra-app/vet-5-profile.png', caption: 'Veterinarian Profile' },
-  ],
-  gov: [
-    { src: '/images/vetra-app/gov-1-overview.png', caption: 'Command Overview' },
-    { src: '/images/vetra-app/gov-2-surveillance-map.png', caption: 'Live GIS Surveillance Map' },
-    { src: '/images/vetra-app/gov-3-outbreaks.png', caption: 'Outbreak Intelligence' },
-    { src: '/images/vetra-app/gov-4-analytics.png', caption: 'Epidemiological Analytics' },
-    { src: '/images/vetra-app/gov-5-reports.png', caption: 'Field Surveillance Reports' },
-    { src: '/images/vetra-app/gov-6-vaccination.png', caption: 'Vaccination Intelligence' },
-    { src: '/images/vetra-app/gov-7-labs.png', caption: 'Laboratory Surveillance' },
-    { src: '/images/vetra-app/gov-8-protocols.png', caption: 'Biosecurity Protocols' },
-    { src: '/images/vetra-app/gov-9-settings.png', caption: 'System Configuration' },
-  ],
-};
 
 export interface SystemCategory {
   title: string;

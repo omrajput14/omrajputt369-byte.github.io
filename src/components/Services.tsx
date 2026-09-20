@@ -1,3 +1,5 @@
+import { Sketch, type SketchKind } from './Sketch';
+
 // Sticky stack: every card pins a little lower than the one before it, so as you
 // scroll they pile up and each earlier card is left showing its title band.
 const services = [
@@ -7,7 +9,7 @@ const services = [
     body: 'REST APIs, authentication, transactional workflows and modular service architecture that survives real traffic.',
     stack: 'Java · Spring Boot · FastAPI · JWT',
     card: 'bg-accent text-fg',
-    img: '/images/jalsetu.png',
+    sketch: 'backend' as SketchKind,
   },
   {
     n: '02',
@@ -15,7 +17,7 @@ const services = [
     body: 'Relational and geospatial data layers — outbreak clustering, district boundaries, records that hold up in an audit.',
     stack: 'PostgreSQL · PostGIS · Redis · SQLite',
     card: 'bg-accent2 text-fg',
-    img: '/images/agriflow.png',
+    sketch: 'data' as SketchKind,
   },
   {
     n: '03',
@@ -23,7 +25,7 @@ const services = [
     body: 'Offline-first apps for farmers and vets working with patchy signal — GPS, camera, push, sync when it can.',
     stack: 'Flutter · Dart · FCM · Leaflet',
     card: 'bg-accent3 text-fg',
-    img: '/images/ecoirrigate.png',
+    sketch: 'mobile' as SketchKind,
   },
   {
     n: '04',
@@ -31,7 +33,7 @@ const services = [
     body: 'Containerised, proxied, CI-deployed and monitored — the part that turns a repo into a running system.',
     stack: 'Docker · Nginx · GitHub Actions · Azure',
     card: 'bg-fg text-bg',
-    img: '/images/agroshield.png',
+    sketch: 'cloud' as SketchKind,
   },
 ];
 
@@ -48,7 +50,7 @@ export function Services() {
         {services.map((s, i) => (
           <article
             key={s.n}
-            className={`sticky grid min-h-[62vh] overflow-hidden rounded-t-[2.5rem] lg:min-h-[74vh] lg:grid-cols-[1fr_minmax(260px,28%)] ${s.card}`}
+            className={`sticky grid min-h-[62vh] overflow-hidden rounded-t-[2.5rem] lg:min-h-[74vh] lg:grid-cols-[1fr_minmax(280px,32%)] ${s.card}`}
             style={{ top: `calc(4.5rem + ${i} * clamp(6.25rem, 9.5vw, 9.5rem))` }}
           >
             <div className="flex flex-col justify-between px-8 pb-8 pt-6 sm:px-12 sm:pb-12 sm:pt-7 lg:px-14 lg:pb-14">
@@ -62,8 +64,8 @@ export function Services() {
                 <p className="t-mono mt-6 opacity-70">{s.stack}</p>
               </div>
             </div>
-            <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-2xl lg:m-6 lg:aspect-auto">
-              <img src={s.img} alt="" className="h-full w-full object-cover" />
+            <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-2xl p-3 lg:m-6 lg:aspect-auto lg:p-4">
+              <Sketch kind={s.sketch} />
             </div>
           </article>
         ))}

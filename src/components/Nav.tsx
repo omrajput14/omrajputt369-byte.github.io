@@ -34,12 +34,12 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-bg sm:px-10">
-        <a href="#home" className="t-display text-2xl tracking-tight">
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 sm:px-10">
+        <a href="#home" className="t-display rounded-md bg-fg px-3 py-1.5 text-xl tracking-tight text-bg">
           O <span className="text-accent">✦</span> R
         </a>
-        <button onClick={() => setOpen((o) => !o)} className="t-mono" aria-expanded={open} aria-label="Toggle menu">
-          {open ? '[ Close ]' : '[ Menu ]'}
+        <button onClick={() => setOpen((o) => !o)} className={`t-mono rounded-md px-4 py-2 transition-colors ${open ? 'bg-bg text-fg' : 'bg-bg2 text-fg hover:bg-fg hover:text-bg'}`} aria-expanded={open} aria-label="Toggle menu">
+          {open ? 'Close' : 'Menu'}
         </button>
       </header>
 
