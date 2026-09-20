@@ -75,8 +75,9 @@ export const vetraScreens: { farmer: Screen[]; vet: Screen[]; gov: Screen[] } = 
     { src: '/images/vetra-app/gov-5-reports.png', caption: 'Field Surveillance Reports' },
     { src: '/images/vetra-app/gov-6-vaccination.png', caption: 'Vaccination Intelligence' },
     { src: '/images/vetra-app/gov-7-labs.png', caption: 'Laboratory Surveillance' },
-    { src: '/images/vetra-app/gov-8-protocols.png', caption: 'Biosecurity Protocols' },
-    { src: '/images/vetra-app/gov-9-settings.png', caption: 'System Configuration' },
+    { src: '/images/vetra-app/gov-8-protocols.png', caption: 'Outbreak Alert Queue' },
+    { src: '/images/vetra-app/gov-9-biosecurity.png', caption: 'Biosecurity Protocol Registry' },
+    { src: '/images/vetra-app/gov-10-settings.png', caption: 'System Configuration & Telemetry' },
   ],
 };
 
