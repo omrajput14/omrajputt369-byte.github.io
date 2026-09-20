@@ -1,112 +1,54 @@
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { Github, Instagram, Linkedin, Mail, MapPin, MessageCircle, Twitter } from 'lucide-react';
-import { emailjs as emailjsConfig, social } from '../lib/data';
-import { ActionButton, Container, SectionHeading } from './ui';
-import { Reveal } from './Reveal';
+import { emailjs as cfg, social } from '../lib/data';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
-const socialLinks = [
-  { href: social.github, label: 'GitHub', icon: Github },
-  { href: social.linkedin, label: 'LinkedIn', icon: Linkedin },
-  { href: social.whatsapp, label: 'WhatsApp', icon: MessageCircle },
-  { href: social.twitter, label: 'Twitter', icon: Twitter },
-  { href: social.instagram, label: 'Instagram', icon: Instagram },
-];
-
 export function Contact() {
-  const formRef = useRef<HTMLFormElement>(null);
+  const form = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>('idle');
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!formRef.current) return;
+    if (!form.current) return;
     setStatus('sending');
     try {
-      await emailjs.sendForm(emailjsConfig.serviceId, emailjsConfig.templateId, formRef.current, emailjsConfig.publicKey);
+      await emailjs.sendForm(cfg.serviceId, cfg.templateId, form.current, cfg.publicKey);
       setStatus('sent');
-      formRef.current.reset();
+      form.current.reset();
     } catch {
       setStatus('error');
     }
   }
 
+  const field = 'w-full border-b border-fg/30 bg-transparent py-4 text-lg outline-none placeholder:text-fg/40 focus:border-fg';
+
   return (
-    <section id="contact" className="py-24 sm:py-32">
-      <Container>
-        <SectionHeading index="06" eyebrow="Contact" title="Build something useful." description="I'm interested in building software around real-world problems, infrastructure and data-driven systems." />
-
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <Reveal className="space-y-6">
-            <a href={`mailto:${social.email}`} className="flex items-center gap-3 text-ink hover:text-accent transition-colors">
-              <Mail size={18} className="text-muted" />
-              {social.email}
-            </a>
-            <div className="flex items-center gap-3 text-ink">
-              <MapPin size={18} className="text-muted" />
-              {social.location}
-            </div>
-            <div className="flex flex-wrap gap-3 pt-2">
-              {socialLinks.map(({ href, label, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="rounded-md border border-border p-2.5 text-muted transition-colors hover:border-accent/40 hover:text-ink"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="user_name" className="sr-only">Your name</label>
-                <input
-                  id="user_name"
-                  name="user_name"
-                  type="text"
-                  required
-                  placeholder="Your name"
-                  className="w-full rounded-md border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
-                />
-              </div>
-              <div>
-                <label htmlFor="user_email" className="sr-only">Your email</label>
-                <input
-                  id="user_email"
-                  name="user_email"
-                  type="email"
-                  required
-                  placeholder="Your email"
-                  className="w-full rounded-md border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="sr-only">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  placeholder="What are you building?"
-                  className="w-full rounded-md border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
-                />
-              </div>
-              <ActionButton type="submit" variant="primary" disabled={status === 'sending'} className="disabled:opacity-60">
-                {status === 'sending' ? 'Sending…' : 'Send message'}
-              </ActionButton>
-              {status === 'sent' && <p className="font-mono text-xs text-[rgb(var(--status))]">Sent — I'll get back to you soon.</p>}
-              {status === 'error' && <p className="font-mono text-xs text-red-500">Something went wrong — email me directly instead.</p>}
-            </form>
-          </Reveal>
+    <section id="contact" className="grid gap-12 border-t border-fg/20 px-6 py-28 sm:px-10 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <h2 className="t-display text-[clamp(3rem,8vw,7rem)]">Contact</h2>
+        <a href={`mailto:${social.email}`} className="mt-8 block text-xl hover:text-accent">{social.email}</a>
+        <p className="t-mono mt-2 text-fg/60">{social.location}</p>
+        <div className="t-mono mt-10 flex flex-wrap gap-5">
+          <a href={social.github} target="_blank" rel="noreferrer" className="hover:text-accent">GitHub</a>
+          <a href={social.linkedin} target="_blank" rel="noreferrer" className="hover:text-accent">LinkedIn</a>
+          <a href={social.whatsapp} target="_blank" rel="noreferrer" className="hover:text-accent">WhatsApp</a>
+          <a href={social.twitter} target="_blank" rel="noreferrer" className="hover:text-accent">X</a>
         </div>
-      </Container>
+      </div>
+      <form ref={form} onSubmit={submit} className="flex flex-col gap-2">
+        <label className="sr-only" htmlFor="user_name">Name</label>
+        <input id="user_name" name="user_name" required placeholder="Your name" className={field} />
+        <label className="sr-only" htmlFor="user_email">Email</label>
+        <input id="user_email" name="user_email" type="email" required placeholder="Your email" className={field} />
+        <label className="sr-only" htmlFor="message">Message</label>
+        <textarea id="message" name="message" required rows={4} placeholder="What are you building?" className={field} />
+        <button type="submit" disabled={status === 'sending'} className="t-mono mt-6 self-start rounded-full bg-fg px-8 py-4 text-bg transition-colors hover:bg-accent disabled:opacity-60">
+          {status === 'sending' ? 'Sending…' : 'Send message'}
+        </button>
+        {status === 'sent' && <p className="t-mono mt-2 text-accent">Sent — I'll get back to you.</p>}
+        {status === 'error' && <p className="t-mono mt-2 text-accent">Something broke — email me directly.</p>}
+      </form>
     </section>
   );
 }

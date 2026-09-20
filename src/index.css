@@ -3,66 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --base: 255 255 255;
-  --surface: 244 244 245;
-  --border: 228 228 231;
-  --ink: 9 9 11;
-  --muted: 82 82 91;
-  --accent: 79 70 229;
-  --status: 16 185 129;
+  --bg: #edf1e8;
+  --bg2: #d7dbd2;
+  --fg: #141414;
+  --accent: #ed6a5a;
 }
 
-.dark {
-  --base: 9 9 11;
-  --surface: 20 20 23;
-  --border: 39 39 42;
-  --ink: 250 250 250;
-  --muted: 161 161 170;
-  --accent: 129 140 248;
-  --status: 52 211 153;
-}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
 
-* {
-  border-color: rgb(var(--border));
-}
-
-html {
-  scroll-behavior: smooth;
-}
+html { overflow-x: hidden; }
 
 body {
-  background-color: rgb(var(--base));
-  color: rgb(var(--ink));
-  font-feature-settings: 'cv11', 'ss01';
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Barlow', system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+
+/* Editorial type scale — display is condensed italic uppercase, like the reference. */
+.t-display {
+  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+}
+.t-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+::selection { background: var(--accent); color: var(--bg); }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-::selection {
-  background: rgb(var(--accent) / 0.3);
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-
-/* thin scrollbar for horizontally scrolling tech marquees / tables */
-.scroll-thin::-webkit-scrollbar {
-  height: 4px;
-}
-.scroll-thin::-webkit-scrollbar-thumb {
-  background: rgb(var(--border));
-  border-radius: 4px;
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }

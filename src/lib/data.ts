@@ -12,8 +12,6 @@ export const categoryLabels: Record<Category, string> = {
   iot: 'IoT',
 };
 
-export type ProjectIcon = 'vetra' | 'website' | 'landmark' | 'dashboard';
-
 export interface Project {
   id: string;
   name: string;
@@ -23,34 +21,114 @@ export interface Project {
   stack: string[];
   github?: string;
   live?: string;
-  icon: ProjectIcon;
+  extraLink?: { label: string; href: string };
+  /** Real screenshot on disk, when one exists. Never invented. */
+  image?: string;
   featured?: boolean;
 }
 
-export const vetra: Project = {
-  id: 'vetra',
-  name: 'VETRA',
-  tagline: 'Veterinary Operating System',
-  description:
-    'Digital infrastructure connecting farmers, veterinarians and a government dashboard for disease surveillance — longitudinal animal records, veterinary workflows and spatial outbreak intelligence.',
-  categories: ['healthcare', 'civictech', 'backend', 'ai'],
-  stack: [
-    'Flutter', 'Dart', 'Java', 'Spring Boot', 'REST APIs',
-    'PostgreSQL', 'PostGIS', 'Redis', 'SQLite', 'Gemini API', 'Open-Meteo',
-    'Firebase Cloud Messaging', 'Leaflet', 'Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure',
-  ],
-  github: 'https://github.com/omrajput14/pashu-sathii',
-  icon: 'vetra',
-  featured: true,
-};
+export const projects: Project[] = [
+  {
+    id: 'vetra',
+    name: 'VETRA',
+    tagline: 'Veterinary Operating System',
+    description:
+      'Digital infrastructure connecting farmers, veterinarians and government disease surveillance — longitudinal animal records, veterinary workflows and spatial outbreak intelligence.',
+    categories: ['healthcare', 'backend', 'ai'],
+    stack: [
+      'Flutter', 'Dart', 'Java', 'Spring Boot', 'REST APIs', 'PostgreSQL', 'PostGIS',
+      'Redis', 'SQLite', 'Gemini API', 'Open-Meteo', 'Firebase Cloud Messaging',
+      'Leaflet', 'Docker', 'Nginx', 'GitHub Actions', 'Microsoft Azure',
+    ],
+    github: 'https://github.com/omrajput14/pashu-sathii',
+    extraLink: { label: 'vetra.co.in', href: 'https://vetra.co.in' },
+    featured: true,
+  },
+  {
+    id: 'vetra-gov',
+    name: 'VETRA — Government Dashboard',
+    tagline: 'Statewide Epidemiological Surveillance',
+    description:
+      'The government-facing side of VETRA — live PostGIS outbreak mapping, a weighted multi-signal risk engine, vaccination coverage tracking, lab/vet diagnostic verification pipelines and a biosecurity protocol registry.',
+    categories: ['healthcare', 'civictech', 'backend'],
+    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'JWT', 'Open-Meteo'],
+    github: 'https://github.com/omrajput14/pashu-sathi',
+    featured: true,
+  },
+  {
+    id: 'agriflow',
+    image: '/images/agriflow.png',
+    name: 'AgriFlow',
+    tagline: 'Export Intelligence Platform',
+    description:
+      'Helps farmers sell crops to global buyers — tracking harvest batches, quality grades, cold-storage slots and export paperwork in one place, with a 3D shipment-tracking map.',
+    categories: ['agritech', 'backend'],
+    stack: ['React', 'FastAPI', 'PostgreSQL', 'Three.js', 'Tailwind CSS', 'Supabase'],
+    github: 'https://github.com/omrajput14/agriflow',
+    live: 'https://agriflow-ten.vercel.app/login',
+  },
+  {
+    id: 'jalsetu',
+    image: '/images/jalsetu.png',
+    name: 'JalSetu',
+    tagline: 'Municipal Water Distribution',
+    description:
+      "A civic dashboard for a city's water supply — reservoir levels, distribution scheduling, citizen complaints and online bill payments.",
+    categories: ['civictech', 'backend'],
+    stack: ['React', 'FastAPI', 'PostgreSQL', 'Tailwind CSS', 'Supabase', 'Razorpay'],
+    github: 'https://github.com/omrajput14/jalsetu',
+    live: 'https://jalsetu.vercel.app',
+  },
+  {
+    id: 'agroshield',
+    image: '/images/agroshield.png',
+    name: 'AgroShield',
+    tagline: 'Crop Protection & Weather Alerts',
+    description:
+      'Reads local weather telemetry and uses machine learning to forecast environmental risk to crops, sending alerts and triggering physical windbreak controls.',
+    categories: ['agritech', 'ai'],
+    stack: ['React', 'FastAPI', 'scikit-learn', 'SQLAlchemy', 'Twilio', 'Tailwind CSS'],
+    github: 'https://github.com/omrajput14/agroshield',
+    live: 'https://agroshield10.vercel.app/',
+  },
+  {
+    id: 'ecoirrigate',
+    image: '/images/ecoirrigate.png',
+    name: 'EcoIrrigate',
+    tagline: 'Smart Irrigation Telemetry',
+    description:
+      'Connects physical soil sensors to a live dashboard — soil moisture, battery levels and valve state, so farmers can monitor fields remotely.',
+    categories: ['agritech', 'iot'],
+    stack: ['React', 'FastAPI', 'Supabase', 'ESP8266', 'Blynk'],
+    github: 'https://github.com/omrajput14/Smart-irrigation-system-',
+    live: 'https://ecoirrigate.vercel.app/',
+  },
+  {
+    id: 'digital-panchayat',
+    image: '/images/panchayat.png',
+    name: 'Digital Panchayat',
+    tagline: 'Civic Operations & Governance',
+    description:
+      'Desktop software for village governance offices — built on Java and SQLite so it keeps working without a reliable internet connection. Structured complaint records, meeting scheduling and audit-ready PDF reports.',
+    categories: ['civictech', 'backend'],
+    stack: ['Java', 'Swing', 'SQLite', 'JDBC', 'RBAC'],
+    github: 'https://github.com/omrajput14/Digital-Panchayat-Management-System',
+  },
+];
+
+export const vetra = projects[0];
+
+/** Real screenshots used for the hero cycle and the flying work cards. */
+export const workImages = projects.filter((p) => p.image).map((p) => p.image!);
+
 
 export interface Screen {
   src: string;
   caption: string;
 }
 
-// Real app screens, farmer/vet/gov sides. Drop files at these exact paths
-// under public/images/vetra-app/ — see README for the full list.
+// Real app screens. Drop files at these exact paths under
+// public/images/vetra-app/ — see README for the full list.
 export const vetraScreens: { farmer: Screen[]; vet: Screen[]; gov: Screen[] } = {
   farmer: [
     { src: '/images/vetra-app/farmer-1-home.png', caption: 'Home — savings from early detection' },
@@ -75,50 +153,10 @@ export const vetraScreens: { farmer: Screen[]; vet: Screen[]; gov: Screen[] } = 
     { src: '/images/vetra-app/gov-5-reports.png', caption: 'Field Surveillance Reports' },
     { src: '/images/vetra-app/gov-6-vaccination.png', caption: 'Vaccination Intelligence' },
     { src: '/images/vetra-app/gov-7-labs.png', caption: 'Laboratory Surveillance' },
-    { src: '/images/vetra-app/gov-8-protocols.png', caption: 'Outbreak Alert Queue' },
-    { src: '/images/vetra-app/gov-9-biosecurity.png', caption: 'Biosecurity Protocol Registry' },
-    { src: '/images/vetra-app/gov-10-settings.png', caption: 'System Configuration & Telemetry' },
+    { src: '/images/vetra-app/gov-8-protocols.png', caption: 'Biosecurity Protocols' },
+    { src: '/images/vetra-app/gov-9-settings.png', caption: 'System Configuration' },
   ],
 };
-
-export const projects: Project[] = [
-  {
-    id: 'vetra-gov-dashboard',
-    name: 'VETRA — GOVERNMENT DASHBOARD',
-    tagline: 'Statewide Epidemiological Surveillance Command Center',
-    description:
-      'The government-facing side of VETRA — live PostGIS outbreak mapping, a weighted multi-signal risk engine, vaccination coverage tracking, lab/vet diagnostic verification pipelines and a statewide biosecurity protocol registry.',
-    categories: ['healthcare', 'civictech', 'backend'],
-    stack: ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'JWT', 'Open-Meteo'],
-    github: 'https://github.com/omrajput14/pashu-sathi',
-    icon: 'dashboard',
-  },
-  {
-    id: 'vetra-website',
-    name: 'VETRA — WEBSITE',
-    tagline: 'Product site for VETRA',
-    description:
-      "The public face of VETRA — where farmers, veterinarians and government partners first meet the platform, ahead of rollout.",
-    categories: ['healthcare'],
-    stack: [],
-    github: 'https://github.com/omrajput14/Vetra-website',
-    live: 'https://vetra.co.in',
-    icon: 'website',
-  },
-  {
-    id: 'digital-panchayat',
-    name: 'DIGITAL PANCHAYAT',
-    tagline: 'Civic Operations & Governance Platform',
-    description:
-      'Desktop software for village governance offices — built on Java and SQLite, so it keeps working without a reliable internet connection. Structured complaint records, meeting scheduling and audit-ready PDF reports.',
-    categories: ['civictech', 'backend'],
-    stack: ['Java', 'Swing', 'SQLite', 'JDBC', 'RBAC'],
-    github: 'https://github.com/omrajput14/Digital-Panchayat-Management-System',
-    icon: 'landmark',
-  },
-];
-
-export const allProjects = [vetra, ...projects];
 
 export interface SystemCategory {
   title: string;
@@ -141,10 +179,9 @@ export interface Metric {
   suffix?: string;
 }
 
-// Sourced from the previous site's own stat counters — not invented.
 export const metrics: Metric[] = [
   { value: '1700', numeric: 1700, suffix: '+', label: 'GitHub Commits' },
-  { value: '6', numeric: 6, suffix: '+', label: 'Systems Built' },
+  { value: '7', numeric: 7, suffix: '', label: 'Systems Built' },
   { value: '3', numeric: 3, suffix: '', label: 'Domains' },
 ];
 
@@ -159,6 +196,26 @@ export const buildLog: BuildLogEntry[] = [
     title: 'Digital Panchayat',
     tag: 'First system',
     description: 'Java + SQLite desktop app for local villagers to file complaints and generate report PDFs.',
+  },
+  {
+    title: 'EcoIrrigate',
+    tag: 'First hardware system',
+    description: 'ESP8266 soil-moisture sensors reporting to a live web dashboard — first hardware + software integration.',
+  },
+  {
+    title: 'AgroShield',
+    tag: 'AI/ML experiments',
+    description: 'A weather-risk forecasting model for crops, plus an early Gemini-AI livestock health checker.',
+  },
+  {
+    title: 'JalSetu',
+    tag: 'End-to-end civic platform',
+    description: 'Water distribution scheduling, citizen complaints and online bill payments in one dashboard.',
+  },
+  {
+    title: 'AgriFlow',
+    tag: 'Flagship web platform',
+    description: 'Export intelligence platform connecting farmers to global buyers, with a 3D shipment-tracking map.',
   },
   {
     title: 'VETRA',

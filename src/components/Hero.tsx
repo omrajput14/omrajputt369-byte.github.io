@@ -1,85 +1,82 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Github, Linkedin } from 'lucide-react';
-import { Container, LinkButton } from './ui';
-import { social } from '../lib/data';
-
-const techLine = ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'Flutter', 'React', 'Cloud', 'AI'];
-
-const headline = 'I BUILD SYSTEMS THAT SOLVE REAL-WORLD PROBLEMS.';
+import { useEffect, useRef } from 'react';
+import { gsap, ScrollTrigger } from '../lib/lenis';
+import { social, workImages } from '../lib/data';
 
 export function Hero() {
-  const reduce = useReducedMotion();
-  const words = headline.split(' ');
+  const holder = useRef<HTMLDivElement>(null);
+  const img = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Rapid cycle through real project screenshots — the reference's hero tic.
+    let i = 0;
+    const cycle = reduce
+      ? 0
+      : window.setInterval(() => {
+          i = (i + 1) % workImages.length;
+          if (img.current) img.current.src = workImages[i];
+        }, 250);
+
+    // The image starts small, tilted and pushed up, and settles into place as
+    // its holder scrolls from the bottom of the viewport to the top.
+    const st = ScrollTrigger.create({
+      trigger: holder.current,
+      start: 'top bottom',
+      end: 'top top',
+      onUpdate: (self) => {
+        if (!img.current || reduce) return;
+        const p = self.progress;
+        gsap.set(img.current, {
+          yPercent: -110 + 110 * p,
+          scale: 0.25 + 0.75 * p,
+          rotate: -15 + 15 * p,
+        });
+      },
+    });
+
+    return () => {
+      if (cycle) clearInterval(cycle);
+      st.kill();
+    };
+  }, []);
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center pt-16 overflow-hidden">
-      {/* faint technical grid backdrop */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgb(var(--border)) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--border)) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%)',
-        }}
-      />
+    <section id="home" className="px-6 pt-32 sm:px-10">
+      <div className="flex min-h-[calc(100vh-8rem)] flex-col justify-between">
+        <div className="flex items-start justify-between gap-6">
+          <p className="t-mono">Systems Engineer</p>
+          <p className="t-mono hidden sm:block">{social.location}</p>
+          <p className="t-mono">
+            <span className="text-accent">●</span> Building: VETRA
+          </p>
+        </div>
 
-      <Container className="relative py-24">
-        <h1 className="font-display max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl md:text-6xl">
-          {words.map((word, i) => (
-            <motion.span
-              key={i}
-              initial={reduce ? undefined : { opacity: 0, y: 24 }}
-              animate={reduce ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block mr-[0.28em]"
-            >
-              {word}
-            </motion.span>
-          ))}
+        <h1 className="t-display mt-16 text-[clamp(5rem,22vw,20rem)]">
+          <span className="block">Om</span>
+          <span className="block pl-[0.12em]">Rajput</span>
         </h1>
 
-        <motion.p
-          initial={reduce ? undefined : { opacity: 0, y: 16 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
-          className="mt-6 max-w-xl text-lg text-muted"
-        >
-          Systems engineer and architect focused on backend design, data and cloud infrastructure for real-world
-          environments.
-        </motion.p>
+        <div className="mt-12 flex flex-wrap items-end justify-between gap-6 pb-8">
+          <p className="max-w-md text-lg leading-snug">
+            Backend, data, spatial and cloud infrastructure for AgriTech, CivicTech and veterinary healthcare — built to
+            work outside the demo.
+          </p>
+          <a href={social.github} target="_blank" rel="noreferrer" className="t-mono border-b border-fg pb-1 transition-colors hover:border-accent hover:text-accent">
+            Fetch // GitHub ↗
+          </a>
+        </div>
+      </div>
 
-        <motion.div
-          initial={reduce ? undefined : { opacity: 0, y: 16 }}
-          animate={reduce ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.65 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
-        >
-          <LinkButton href="#vetra" variant="primary">
-            See the System <ArrowUpRight size={16} />
-          </LinkButton>
-          <LinkButton href="https://github.com/omrajput14" target="_blank" rel="noreferrer" variant="secondary">
-            <Github size={16} /> GitHub
-          </LinkButton>
-          <LinkButton href={social.linkedin} target="_blank" rel="noreferrer" variant="secondary">
-            <Linkedin size={16} /> LinkedIn
-          </LinkButton>
-        </motion.div>
-
-        <motion.div
-          initial={reduce ? undefined : { opacity: 0 }}
-          animate={reduce ? undefined : { opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-muted"
-        >
-          {techLine.map((tech, i) => (
-            <span key={tech} className="flex items-center gap-3">
-              {tech}
-              {i < techLine.length - 1 && <span className="text-border">·</span>}
-            </span>
-          ))}
-        </motion.div>
-      </Container>
+      <div ref={holder} className="relative mx-auto mt-4 aspect-[16/10] w-full max-w-5xl overflow-visible">
+        <img
+          ref={img}
+          src={workImages[0]}
+          alt="Screenshots of shipped systems"
+          className="h-full w-full rounded-sm object-cover will-change-transform"
+          style={{ transformOrigin: 'center top' }}
+        />
+      </div>
     </section>
   );
 }

@@ -1,10 +1,10 @@
 # Om Rajput — Portfolio
 
-Personal site for [omrajput.me](https://omrajput.me), rebuilt as a React + TypeScript + Vite + Tailwind + Framer Motion single-page app.
+Personal site for [omrajput.me](https://omrajput.me) — React + TypeScript + Vite + Tailwind, with GSAP ScrollTrigger and Lenis smooth scroll. Editorial scroll-storytelling layout inspired by [this reference](https://web-development-portfolio-blond.vercel.app/).
 
 ## Stack
 
-React · TypeScript · Vite · Tailwind CSS · Framer Motion · Lucide icons · EmailJS
+React · TypeScript · Vite · Tailwind CSS · GSAP · Lenis · EmailJS
 
 ## Develop
 

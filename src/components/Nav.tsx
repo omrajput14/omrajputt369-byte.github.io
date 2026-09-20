@@ -1,108 +1,76 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Menu, Moon, Sun, X } from 'lucide-react';
-import { nav, social } from '../lib/data';
-import { useActiveSection } from '../hooks/useActiveSection';
-import { useTheme } from '../hooks/useTheme';
-import { Container } from './ui';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from '../lib/lenis';
+import { social } from '../lib/data';
+
+const links = [
+  { label: 'Home', href: '#home' },
+  { label: 'Work', href: '#work' },
+  { label: 'Contact', href: '#contact' },
+];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
-  const active = useActiveSection(nav.map((n) => n.href.slice(1)));
-  const { dark, toggle } = useTheme();
+  const overlay = useRef<HTMLDivElement>(null);
+  const items = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!overlay.current || !items.current) return;
+    const rows = items.current.querySelectorAll('[data-row]');
+    if (open) {
+      document.documentElement.classList.add('lenis-stopped');
+      gsap.set(overlay.current, { display: 'flex' });
+      gsap.fromTo(overlay.current, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'power4.inOut' });
+      gsap.fromTo(rows, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, delay: 0.25, ease: 'power3.out' });
+    } else {
+      document.documentElement.classList.remove('lenis-stopped');
+      gsap.to(overlay.current, {
+        clipPath: 'inset(0 0 100% 0)',
+        duration: 0.55,
+        ease: 'power4.inOut',
+        onComplete: () => gsap.set(overlay.current, { display: 'none' }),
+      });
+    }
+  }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-canvas/80 backdrop-blur-md">
-      <Container className="flex h-16 items-center justify-between">
-        <a href="#home" className="font-display text-sm font-semibold tracking-tight">
-          OM<span className="text-accent">.</span>RAJPUT
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-bg sm:px-10">
+        <a href="#home" className="t-display text-2xl tracking-tight">
+          O <span className="text-accent">✦</span> R
         </a>
-
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
-          {nav.map((item) => {
-            const id = item.href.slice(1);
-            const isActive = active === id;
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                className="relative px-3 py-2 font-mono text-xs uppercase tracking-wide text-muted transition-colors hover:text-ink"
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute inset-0 rounded-md bg-surface"
-                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                  />
-                )}
-                <span className={`relative ${isActive ? 'text-ink' : ''}`}>{item.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-
-        <div className="hidden lg:flex items-center gap-3">
-          <a href={social.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-muted hover:text-ink transition-colors">
-            <Github size={18} />
-          </a>
-          <a href={social.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-muted hover:text-ink transition-colors">
-            <Linkedin size={18} />
-          </a>
-          <button
-            onClick={toggle}
-            aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
-            className="rounded-md border border-border p-2 text-muted hover:text-ink hover:border-accent/40 transition-colors"
-          >
-            {dark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
-        </div>
-
-        <button
-          className="lg:hidden p-2 text-ink"
-          onClick={() => setOpen((o) => !o)}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
+        <button onClick={() => setOpen((o) => !o)} className="t-mono" aria-expanded={open} aria-label="Toggle menu">
+          {open ? '[ Close ]' : '[ Menu ]'}
         </button>
-      </Container>
+      </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="lg:hidden overflow-hidden border-t border-border bg-canvas"
-            aria-label="Primary"
-          >
-            <Container className="flex flex-col py-4">
-              {nav.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="py-3 font-mono text-sm uppercase tracking-wide text-muted hover:text-ink border-b border-border/60 last:border-0"
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="flex items-center gap-4 pt-4">
-                <a href={social.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-muted hover:text-ink">
-                  <Github size={20} />
-                </a>
-                <a href={social.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-muted hover:text-ink">
-                  <Linkedin size={20} />
-                </a>
-                <button onClick={toggle} aria-label="Toggle theme" className="ml-auto rounded-md border border-border p-2 text-muted">
-                  {dark ? <Sun size={16} /> : <Moon size={16} />}
-                </button>
-              </div>
-            </Container>
-          </motion.nav>
-        )}
-      </AnimatePresence>
-    </header>
+      <div ref={overlay} className="fixed inset-0 z-40 hidden flex-col justify-between bg-fg px-6 pb-10 pt-28 text-bg sm:px-10" style={{ display: 'none' }}>
+        <div ref={items} className="flex flex-col gap-2">
+          {links.map((l) => (
+            <div key={l.href} data-row>
+              <a href={l.href} onClick={() => setOpen(false)} className="t-display text-[clamp(3.5rem,12vw,9rem)] transition-colors hover:text-accent">
+                {l.label}
+              </a>
+            </div>
+          ))}
+        </div>
+        <div ref={undefined} className="grid gap-8 border-t border-bg/20 pt-8 sm:grid-cols-3">
+          <div data-row>
+            <p className="t-mono text-bg/50">Find me</p>
+            <div className="mt-3 flex flex-col gap-1 text-lg">
+              <a href={social.github} target="_blank" rel="noreferrer" className="hover:text-accent">GitHub</a>
+              <a href={social.linkedin} target="_blank" rel="noreferrer" className="hover:text-accent">LinkedIn</a>
+            </div>
+          </div>
+          <div data-row>
+            <p className="t-mono text-bg/50">Get in touch</p>
+            <a href={`mailto:${social.email}`} className="mt-3 block text-lg hover:text-accent">{social.email}</a>
+          </div>
+          <div data-row>
+            <p className="t-mono text-bg/50">Based in</p>
+            <p className="mt-3 text-lg">{social.location}</p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
