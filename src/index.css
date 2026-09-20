@@ -22,7 +22,8 @@ body {
   font-family: 'Barlow', system-ui, sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* No overflow-x here: it turns body into a scroll container and kills
+     position: sticky for the whole page. html carries it instead. */
 }
 
 /* Editorial type scale — display is condensed italic uppercase, like the reference. */
