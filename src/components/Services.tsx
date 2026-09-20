@@ -6,15 +6,27 @@ const services = [
   {
     n: '01',
     title: 'Backend Systems',
-    body: 'REST APIs, authentication, transactional workflows and modular service architecture that survives real traffic.',
-    stack: 'Java · Spring Boot · FastAPI · JWT',
+    lead: 'The server side, built to last.',
+    can: [
+      'REST API design, versioning and documentation',
+      'Authentication, JWT and role-based access control',
+      'Transactional workflows and background jobs',
+      'Modular, testable service architecture',
+    ],
+    stack: 'Java · Spring Boot · FastAPI · JWT · REST',
     card: 'bg-accent text-fg',
     sketch: 'backend' as SketchKind,
   },
   {
     n: '02',
     title: 'Data & Spatial',
-    body: 'Relational and geospatial data layers — outbreak clustering, district boundaries, records that hold up in an audit.',
+    lead: 'Data models that hold up in an audit.',
+    can: [
+      'Relational schema design and migrations',
+      'Geospatial queries, clustering and boundaries with PostGIS',
+      'Caching and queues with Redis',
+      'Embedded and offline storage with SQLite',
+    ],
     stack: 'PostgreSQL · PostGIS · Redis · SQLite',
     card: 'bg-accent2 text-fg',
     sketch: 'data' as SketchKind,
@@ -22,16 +34,28 @@ const services = [
   {
     n: '03',
     title: 'Mobile Systems',
-    body: 'Offline-first apps for farmers and vets working with patchy signal — GPS, camera, push, sync when it can.',
-    stack: 'Flutter · Dart · FCM · Leaflet',
+    lead: 'Apps that keep working where the signal doesn\u2019t.',
+    can: [
+      'Cross-platform apps in Flutter',
+      'Offline-first storage and background sync',
+      'GPS, camera and map integration',
+      'Push notifications with Firebase Cloud Messaging',
+    ],
+    stack: 'Flutter · Dart · FCM · Leaflet · SQLite',
     card: 'bg-accent3 text-fg',
     sketch: 'mobile' as SketchKind,
   },
   {
     n: '04',
     title: 'Cloud & Infrastructure',
-    body: 'Containerised, proxied, CI-deployed and monitored — the part that turns a repo into a running system.',
-    stack: 'Docker · Nginx · GitHub Actions · Azure',
+    lead: 'From repo to running system.',
+    can: [
+      'Containerised deployments with Docker',
+      'Reverse proxy, routing and TLS with Nginx',
+      'CI/CD pipelines in GitHub Actions',
+      'Cloud hosting and monitoring on Azure',
+    ],
+    stack: 'Docker · Nginx · GitHub Actions · Microsoft Azure',
     card: 'bg-fg text-bg',
     sketch: 'cloud' as SketchKind,
   },
@@ -60,8 +84,16 @@ export function Services() {
                 <h3 className="t-display text-[clamp(2.6rem,8.5vw,8rem)]">{s.title}</h3>
               </div>
               <div className="mt-10 max-w-xl">
-                <p className="text-lg leading-snug sm:text-xl">{s.body}</p>
-                <p className="t-mono mt-6 opacity-70">{s.stack}</p>
+                <p className="text-xl leading-snug sm:text-2xl">{s.lead}</p>
+                <ul className="mt-5 space-y-2 text-base leading-snug sm:text-lg">
+                  {s.can.map((c) => (
+                    <li key={c} className="flex gap-3">
+                      <span className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-current opacity-70" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+                <p className="t-mono mt-7 opacity-70">{s.stack}</p>
               </div>
             </div>
             <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-2xl p-3 lg:m-6 lg:aspect-auto lg:p-4">
