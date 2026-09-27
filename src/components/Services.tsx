@@ -63,10 +63,18 @@ const services = [
 
 export function Services() {
   return (
-    <section className="py-28">
-      <div className="mb-16 grid gap-6 px-6 sm:px-10 lg:grid-cols-2 lg:items-end">
-        <p className="t-mono">Your problem. My systems.</p>
-        <h2 className="t-display text-[clamp(2.8rem,7vw,6rem)]">Backend, data &amp; cloud infrastructure for the real world</h2>
+    <section>
+      {/* Reference: a full-screen centred header before the stack. */}
+      <div className="flex min-h-[100svh] flex-col items-center justify-center px-6 text-center sm:px-8">
+        <div className="mb-8 h-[100px] w-[100px] overflow-hidden rounded-[1em] border-[0.25rem] border-fg outline outline-[0.25rem] outline-accent3">
+          <img src="/images/profile.jpg" alt="Om Rajput" className="h-full w-full object-cover" />
+        </div>
+        <p className="text-lg sm:text-xl">Your problem. My systems.</p>
+        <h2 className="t-display mt-4 text-[clamp(2.8rem,7vw,6.5rem)]">
+          <span className="block">Backend, data &amp;</span>
+          <span className="block">cloud infrastructure</span>
+        </h2>
+        <p className="t-display mt-16 text-[clamp(2.5rem,5vw,4.5rem)]" aria-hidden="true">&darr;</p>
       </div>
 
       {/* Extra room below so the last card can still pin at its offset instead of releasing early. */}

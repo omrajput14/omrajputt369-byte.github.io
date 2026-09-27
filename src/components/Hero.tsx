@@ -3,17 +3,19 @@ import { Cloud, Database, MapPin, Server, Smartphone } from 'lucide-react';
 import { gsap, ScrollTrigger } from '../lib/lenis';
 import { heroScreens, social } from '../lib/data';
 
+// Reference mechanic: two long name lines at different depths — line one sits
+// BEHIND the card, line two sits IN FRONT of it — so the card tucks between
+// them and both lines stay readable. The card flies out of the full-viewport
+// holder below and settles into it as you scroll.
 export function Hero() {
-  const holder = useRef<HTMLDivElement>(null);
-  const name = useRef<HTMLHeadingElement>(null);
-  const om = useRef<HTMLSpanElement>(null);
+  const nameBlock = useRef<HTMLDivElement>(null);
+  const holder = useRef<HTMLElement>(null);
   const frame = useRef<HTMLDivElement>(null);
   const img = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Rapid cycle through the project showcase posters.
     let i = 0;
     const cycle = reduce
       ? 0
@@ -21,33 +23,30 @@ export function Hero() {
           i = (i + 1) % heroScreens.length;
           if (img.current) img.current.src = heroScreens[i];
         }, 250);
+    if (reduce) return () => undefined;
 
-    // At rest the framed card sits in the open space beside "OM", sized to
-    // the line so the name is never covered; scrolling grows it into its
-    // full-width slot. Everything is measured, so it holds on any viewport.
+    // Offset from the frame's resting centre to the seam between the two name
+    // lines. On desktop this is what the reference's translateY(-110%) lands
+    // on; measuring it keeps mobile (a shorter 16:9 frame) aligned too.
     let dx = 0;
     let dy = 0;
-    let s0 = 0.26;
-    const TILT = -14;
+    let s0 = 0.25;
     const measure = () => {
-      const h = holder.current, f = frame.current, o = om.current, n = name.current;
-      if (!h || !f || !o || !n) return;
-      const hr = h.getBoundingClientRect();
-      const or = o.getBoundingClientRect();
+      const n = nameBlock.current, h = holder.current, f = frame.current;
+      if (!n || !h || !f) return;
       const nr = n.getBoundingClientRect();
-      const fw = f.offsetWidth;
-      const fh = f.offsetHeight;
-      const gap = Math.max(12, window.innerWidth * 0.02);
-      const left = or.right + gap;
-      const right = nr.right;
-      // Width budget from the free space; height budget so the tilted card
-      // stays within line one instead of spilling onto "RAJPUT".
-      const byWidth = ((right - left) * 0.82) / fw;
-      const rad = Math.abs(TILT) * (Math.PI / 180);
-      const byHeight = (or.height * 1.02) / (fw * Math.sin(rad) + fh * Math.cos(rad));
-      s0 = Math.max(0.16, Math.min(0.55, byWidth, byHeight));
-      dx = (left + right) / 2 - (hr.left + fw / 2);
-      dy = or.top + or.height / 2 - (hr.top + fh / 2);
+      const hr = h.getBoundingClientRect();
+      const pad = parseFloat(getComputedStyle(h).paddingLeft);
+      const fcx = hr.left + pad + f.offsetWidth / 2;
+      const fcy = hr.top + parseFloat(getComputedStyle(h).paddingTop) + f.offsetHeight / 2;
+      dx = nr.left + nr.width / 2 - fcx;
+      // Sit a little below the seam: the card mostly rests behind line two
+      // (which is in front of it) and only grazes the foot of the name, so
+      // "OM RAJPUT" always reads in full.
+      const lineH = (n.firstElementChild as HTMLElement).getBoundingClientRect().height;
+      const wide = window.innerWidth >= 1000;
+      dy = nr.top + nr.height / 2 + lineH * (wide ? 0.45 : 0.8) - fcy;
+      s0 = wide ? 0.25 : 0.34;
     };
     const apply = (p: number) => {
       if (!frame.current) return;
@@ -55,24 +54,23 @@ export function Hero() {
         x: dx * (1 - p),
         y: dy * (1 - p),
         scale: s0 + (1 - s0) * p,
-        rotate: TILT * (1 - p),
+        rotate: -15 * (1 - p),
       });
     };
     measure();
-    if (!reduce) apply(0);
-    // Font swap changes the width of "OM", so re-measure once fonts land.
-    document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    apply(0);
 
     const st = ScrollTrigger.create({
       trigger: holder.current,
       start: 'top bottom',
-      end: 'top top+=80',
+      end: 'top top',
       onRefresh: (self) => {
         measure();
-        if (!reduce) apply(self.progress);
+        apply(self.progress);
       },
-      onUpdate: (self) => !reduce && apply(self.progress),
+      onUpdate: (self) => apply(self.progress),
     });
+    document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
     return () => {
       if (cycle) clearInterval(cycle);
@@ -81,40 +79,44 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="home" className="px-6 sm:px-10">
-      <div className="flex min-h-screen flex-col justify-between pb-10 pt-28">
-        <div />
-        <h1 ref={name} className="t-display text-[clamp(5.5rem,21vw,21rem)]">
-          <span className="block text-left">
-            <span ref={om} className="inline-block pr-[0.06em]">Om</span>
-          </span>
-          <span className="block pr-[0.05em] text-right">Rajput</span>
-        </h1>
-        <div className="t-mono flex items-center justify-between gap-6">
-          <div className="hidden items-center gap-3 sm:flex" aria-hidden="true">
+    <>
+      <section id="home" className="relative flex h-[100svh] min-h-[560px] flex-col items-center justify-center overflow-x-clip px-6 sm:px-8">
+        <div ref={nameBlock} className="t-display whitespace-nowrap text-center text-[14.6vw] leading-[0.9]">
+          {/* behind the card */}
+          <div className="relative -z-10 -translate-x-[2%]">
+            <h1>Om Rajput</h1>
+          </div>
+          {/* in front of the card */}
+          <div className="relative z-20 translate-x-[7%]">
+            <p>Builds Systems</p>
+          </div>
+        </div>
+
+        <div className="t-mono absolute inset-x-0 bottom-0 flex items-center justify-end p-6 sm:p-8 lg:justify-between">
+          <div className="hidden items-center gap-3 lg:flex" aria-hidden="true">
             <Server size={16} /><Database size={16} /><Smartphone size={16} /><MapPin size={16} /><Cloud size={16} />
           </div>
-          <a href={social.github} target="_blank" rel="noreferrer" className="hover:text-accent">
+          <a
+            href={social.github}
+            target="_blank"
+            rel="noreferrer"
+            className="absolute left-6 hover:text-accent sm:left-8 lg:left-1/2 lg:-translate-x-1/2"
+          >
             Fetch // GitHub
           </a>
-          <span><span className="text-accent">●</span> Systems mode: on</span>
+          <span>Systems mode: on</span>
         </div>
-      </div>
+      </section>
 
-      {/* Full-width slot the framed image lands in. */}
-      <div ref={holder} className="relative mx-auto w-full max-w-[1400px] pb-16">
+      {/* Full-viewport holder the card lands in (16:9 below 1000px). */}
+      <section ref={holder} className="relative px-6 pb-6 sm:px-8 sm:pb-8 lg:h-[100svh] lg:pt-8">
         <div
           ref={frame}
-          className="relative aspect-[16/9] w-full overflow-hidden rounded-[1.75rem] bg-fg p-2.5 shadow-2xl will-change-transform sm:rounded-[2.25rem] sm:p-3"
+          className="relative aspect-[16/9] w-full overflow-hidden rounded-[1.25em] border-[0.3em] border-fg bg-fg will-change-transform lg:aspect-auto lg:h-full lg:rounded-[2em]"
         >
-          <img
-            ref={img}
-            src={heroScreens[0]}
-            alt="Project showcase"
-            className="h-full w-full rounded-[1.25rem] object-cover sm:rounded-[1.6rem]"
-          />
+          <img ref={img} src={heroScreens[0]} alt="Project showcase" className="h-full w-full object-cover" />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
