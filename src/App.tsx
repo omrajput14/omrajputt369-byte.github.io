@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { initSmoothScroll } from './lib/lenis';
+import { Intro } from './components/Intro';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { AboutHero } from './components/AboutHero';
@@ -15,6 +16,7 @@ export default function App() {
 
   return (
     <>
+      <Intro />
       <Nav />
       <main>
         <Hero />
