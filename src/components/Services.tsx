@@ -64,13 +64,10 @@ const services = [
 export function Services() {
   return (
     <section>
-      {/* Reference: a full-screen centred header before the stack. */}
+      {/* Services header — no photo, clean centred text only. */}
       <div className="flex min-h-[100svh] flex-col items-center justify-center px-6 text-center sm:px-8">
-        <div className="mb-8 h-[100px] w-[100px] overflow-hidden rounded-[1em] border-[0.25rem] border-fg outline outline-[0.25rem] outline-accent3">
-          <img src="/images/profile.jpg" alt="Om Rajput" className="h-full w-full object-cover" />
-        </div>
-        <p className="text-lg sm:text-xl">Your problem. My systems.</p>
-        <h2 className="t-display mt-4 text-[clamp(2.8rem,7vw,6.5rem)]">
+        <p className="t-mono mb-4 opacity-50">Your problem. My systems.</p>
+        <h2 className="t-display text-[clamp(2.8rem,7vw,6.5rem)]">
           <span className="block">Backend, data &amp;</span>
           <span className="block">cloud infrastructure</span>
         </h2>

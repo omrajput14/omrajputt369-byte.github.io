@@ -3,10 +3,9 @@ import { Cloud, Database, MapPin, Server, Smartphone } from 'lucide-react';
 import { gsap, ScrollTrigger } from '../lib/lenis';
 import { heroScreens, social } from '../lib/data';
 
-// Reference mechanic: two long name lines at different depths — line one sits
-// BEHIND the card, line two sits IN FRONT of it — so the card tucks between
-// them and both lines stay readable. The card flies out of the full-viewport
-// holder below and settles into it as you scroll.
+// Two-depth name trick: line one (OM RAJPUT) sits BEHIND the card, line two
+// (SYSTEMS ENGINEER) sits IN FRONT — card tucks between them so both lines
+// stay readable. The card flies up out of the full-viewport holder on scroll.
 export function Hero() {
   const nameBlock = useRef<HTMLDivElement>(null);
   const holder = useRef<HTMLElement>(null);
@@ -25,9 +24,6 @@ export function Hero() {
         }, 250);
     if (reduce) return () => undefined;
 
-    // Offset from the frame's resting centre to the seam between the two name
-    // lines. On desktop this is what the reference's translateY(-110%) lands
-    // on; measuring it keeps mobile (a shorter 16:9 frame) aligned too.
     let dx = 0;
     let dy = 0;
     let s0 = 0.25;
@@ -40,9 +36,6 @@ export function Hero() {
       const fcx = hr.left + pad + f.offsetWidth / 2;
       const fcy = hr.top + parseFloat(getComputedStyle(h).paddingTop) + f.offsetHeight / 2;
       dx = nr.left + nr.width / 2 - fcx;
-      // Sit a little below the seam: the card mostly rests behind line two
-      // (which is in front of it) and only grazes the foot of the name, so
-      // "OM RAJPUT" always reads in full.
       const lineH = (n.firstElementChild as HTMLElement).getBoundingClientRect().height;
       const wide = window.innerWidth >= 1000;
       dy = nr.top + nr.height / 2 + lineH * (wide ? 0.45 : 0.8) - fcy;
@@ -64,10 +57,7 @@ export function Hero() {
       trigger: holder.current,
       start: 'top bottom',
       end: 'top top',
-      onRefresh: (self) => {
-        measure();
-        apply(self.progress);
-      },
+      onRefresh: (self) => { measure(); apply(self.progress); },
       onUpdate: (self) => apply(self.progress),
     });
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
@@ -81,14 +71,14 @@ export function Hero() {
   return (
     <>
       <section id="home" className="relative flex h-[100svh] min-h-[560px] flex-col items-center justify-center overflow-x-clip px-6 sm:px-8">
-        <div ref={nameBlock} className="t-display whitespace-nowrap text-center text-[14.6vw] leading-[0.9]">
-          {/* behind the card */}
+        <div ref={nameBlock} className="t-display text-center leading-[0.88]">
+          {/* Behind the card */}
           <div className="relative -z-10 -translate-x-[2%]">
-            <h1>Om Rajput</h1>
+            <h1 className="text-[clamp(3.5rem,14vw,12rem)]">Om Rajput</h1>
           </div>
-          {/* in front of the card */}
-          <div className="relative z-20 translate-x-[7%]">
-            <p>Builds Systems</p>
+          {/* In front of the card */}
+          <div className="relative z-20 translate-x-[4%]">
+            <p className="text-[clamp(2rem,8.2vw,7rem)]">Systems Engineer</p>
           </div>
         </div>
 
