@@ -1,3 +1,5 @@
+import { Doodle, type DoodleKind } from './Doodle';
+
 // Sticky stack: every card pins a little lower than the one before it, so as you
 // scroll they pile up and each earlier card is left showing its title band.
 const services = [
@@ -13,7 +15,7 @@ const services = [
     ],
     stack: 'Java · Spring Boot · FastAPI · JWT · REST',
     card: 'bg-accent text-fg',
-    img: '/images/showcase/pashu-sathi.jpg',
+    doodle: 'backend' as DoodleKind,
   },
   {
     n: '02',
@@ -27,7 +29,7 @@ const services = [
     ],
     stack: 'PostgreSQL · PostGIS · Redis · SQLite',
     card: 'bg-accent2 text-fg',
-    img: '/images/showcase/vetra.jpg',
+    doodle: 'data' as DoodleKind,
   },
   {
     n: '03',
@@ -41,7 +43,7 @@ const services = [
     ],
     stack: 'Flutter · Dart · FCM · Leaflet · SQLite',
     card: 'bg-accent3 text-fg',
-    img: '/images/showcase/ecoirrigate.jpg',
+    doodle: 'mobile' as DoodleKind,
   },
   {
     n: '04',
@@ -55,7 +57,7 @@ const services = [
     ],
     stack: 'Docker · Nginx · GitHub Actions · Microsoft Azure',
     card: 'bg-fg text-bg',
-    img: '/images/showcase/agriflow.jpg',
+    doodle: 'cloud' as DoodleKind,
   },
 ];
 
@@ -94,8 +96,9 @@ export function Services() {
                 <p className="t-mono mt-7 opacity-70">{s.stack}</p>
               </div>
             </div>
-            <div className="relative m-4 mt-0 aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10] lg:m-6 lg:aspect-auto">
-              <img src={s.img} alt="" className="h-full w-full object-cover" />
+            {/* White doodle panel, like the reference's service illustrations. */}
+            <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-2xl bg-white p-5 text-fg sm:aspect-[16/12] lg:m-6 lg:aspect-auto lg:p-7">
+              <Doodle kind={s.doodle} />
             </div>
           </article>
         ))}

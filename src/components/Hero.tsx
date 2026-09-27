@@ -84,13 +84,13 @@ export function Hero() {
       <div ref={holder} className="relative mx-auto w-full max-w-[1400px] pb-16">
         <div
           ref={frame}
-          className="relative aspect-[16/10] w-full overflow-hidden rounded-[1.75rem] bg-fg p-2.5 shadow-2xl will-change-transform sm:rounded-[2.25rem] sm:p-3"
+          className="relative aspect-[16/9] w-full overflow-hidden rounded-[1.75rem] bg-fg p-2.5 shadow-2xl will-change-transform sm:rounded-[2.25rem] sm:p-3"
         >
           <img
             ref={img}
             src={heroScreens[0]}
-            alt="VETRA government surveillance dashboard"
-            className="h-full w-full rounded-[1.25rem] object-cover object-top sm:rounded-[1.6rem]"
+            alt="Project showcase"
+            className="h-full w-full rounded-[1.25rem] object-cover sm:rounded-[1.6rem]"
           />
         </div>
       </div>
