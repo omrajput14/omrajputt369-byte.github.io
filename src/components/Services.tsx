@@ -1,5 +1,3 @@
-import { Sketch, type SketchKind } from './Sketch';
-
 // Sticky stack: every card pins a little lower than the one before it, so as you
 // scroll they pile up and each earlier card is left showing its title band.
 const services = [
@@ -15,7 +13,7 @@ const services = [
     ],
     stack: 'Java · Spring Boot · FastAPI · JWT · REST',
     card: 'bg-accent text-fg',
-    sketch: 'backend' as SketchKind,
+    img: '/images/showcase/pashu-sathi.jpg',
   },
   {
     n: '02',
@@ -29,7 +27,7 @@ const services = [
     ],
     stack: 'PostgreSQL · PostGIS · Redis · SQLite',
     card: 'bg-accent2 text-fg',
-    sketch: 'data' as SketchKind,
+    img: '/images/showcase/vetra.jpg',
   },
   {
     n: '03',
@@ -43,7 +41,7 @@ const services = [
     ],
     stack: 'Flutter · Dart · FCM · Leaflet · SQLite',
     card: 'bg-accent3 text-fg',
-    sketch: 'mobile' as SketchKind,
+    img: '/images/showcase/ecoirrigate.jpg',
   },
   {
     n: '04',
@@ -57,7 +55,7 @@ const services = [
     ],
     stack: 'Docker · Nginx · GitHub Actions · Microsoft Azure',
     card: 'bg-fg text-bg',
-    sketch: 'cloud' as SketchKind,
+    img: '/images/showcase/agriflow.jpg',
   },
 ];
 
@@ -96,8 +94,8 @@ export function Services() {
                 <p className="t-mono mt-7 opacity-70">{s.stack}</p>
               </div>
             </div>
-            <div className="relative m-4 mt-0 aspect-[4/5] overflow-hidden rounded-2xl p-3 lg:m-6 lg:aspect-auto lg:p-4">
-              <Sketch kind={s.sketch} />
+            <div className="relative m-4 mt-0 aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/10] lg:m-6 lg:aspect-auto">
+              <img src={s.img} alt="" className="h-full w-full object-cover" />
             </div>
           </article>
         ))}

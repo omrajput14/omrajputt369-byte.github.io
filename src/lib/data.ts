@@ -22,7 +22,7 @@ export interface Project {
   github?: string;
   live?: string;
   extraLink?: { label: string; href: string };
-  /** Real screenshot on disk, when one exists. Never invented. */
+  /** Showcase image; generated project covers are illustrative rather than product screenshots. */
   image?: string;
   featured?: boolean;
 }
@@ -30,11 +30,10 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'vetra',
-    image: '/images/vetra-app/gov-2-surveillance-map.png',
     name: 'VETRA',
     tagline: 'Veterinary Operating System',
     description:
-      'Digital infrastructure connecting farmers, veterinarians and government disease surveillance — longitudinal animal records, veterinary workflows and spatial outbreak intelligence.',
+      'A mobile-first platform to manage animal health records, connect farmers with veterinarians, and enable early disease detection with GPS-based surveillance.',
     categories: ['healthcare', 'backend', 'ai'],
     stack: [
       'Flutter', 'Dart', 'Java', 'Spring Boot', 'REST APIs', 'PostgreSQL', 'PostGIS',
@@ -43,18 +42,19 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/omrajput14/pashu-sathii',
     extraLink: { label: 'vetra.co.in', href: 'https://vetra.co.in' },
+    image: '/images/showcase/vetra.jpg',
     featured: true,
   },
   {
-    id: 'vetra-gov',
-    image: '/images/vetra-app/gov-1-overview.png',
-    name: 'VETRA — Government Dashboard',
-    tagline: 'Statewide Epidemiological Surveillance',
+    id: 'pashu-sathi',
+    name: 'Pashu Sathi',
+    tagline: 'Government Livestock Health Dashboard',
     description:
-      'The government-facing side of VETRA — live PostGIS outbreak mapping, a weighted multi-signal risk engine, vaccination coverage tracking, lab/vet diagnostic verification pipelines and a biosecurity protocol registry.',
+      'A government dashboard for real-time monitoring of livestock disease cases, field reports, and veterinary response across Maharashtra.',
     categories: ['healthcare', 'civictech', 'backend'],
     stack: ['Java', 'Spring Boot', 'PostgreSQL', 'PostGIS', 'JWT', 'Open-Meteo'],
     github: 'https://github.com/omrajput14/pashu-sathi',
+    image: '/images/showcase/pashu-sathi.jpg',
     featured: true,
   },
   {
@@ -62,33 +62,12 @@ export const projects: Project[] = [
     name: 'AgriFlow',
     tagline: 'Export Intelligence Platform',
     description:
-      'Helps farmers sell crops to global buyers — tracking harvest batches, quality grades, cold-storage slots and export paperwork in one place, with a 3D shipment-tracking map.',
+      'Helps farmers sell crops to global buyers — tracking harvest batches, quality grades, cold-storage slots and export paperwork in one place.',
     categories: ['agritech', 'backend'],
     stack: ['React', 'FastAPI', 'PostgreSQL', 'Three.js', 'Tailwind CSS', 'Supabase'],
     github: 'https://github.com/omrajput14/agriflow',
     live: 'https://agriflow-ten.vercel.app/login',
-  },
-  {
-    id: 'jalsetu',
-    name: 'JalSetu',
-    tagline: 'Municipal Water Distribution',
-    description:
-      "A civic dashboard for a city's water supply — reservoir levels, distribution scheduling, citizen complaints and online bill payments.",
-    categories: ['civictech', 'backend'],
-    stack: ['React', 'FastAPI', 'PostgreSQL', 'Tailwind CSS', 'Supabase', 'Razorpay'],
-    github: 'https://github.com/omrajput14/jalsetu',
-    live: 'https://jalsetu.vercel.app',
-  },
-  {
-    id: 'agroshield',
-    name: 'AgroShield',
-    tagline: 'Crop Protection & Weather Alerts',
-    description:
-      'Reads local weather telemetry and uses machine learning to forecast environmental risk to crops, sending alerts and triggering physical windbreak controls.',
-    categories: ['agritech', 'ai'],
-    stack: ['React', 'FastAPI', 'scikit-learn', 'SQLAlchemy', 'Twilio', 'Tailwind CSS'],
-    github: 'https://github.com/omrajput14/agroshield',
-    live: 'https://agroshield10.vercel.app/',
+    image: '/images/showcase/agriflow.jpg',
   },
   {
     id: 'ecoirrigate',
@@ -100,6 +79,7 @@ export const projects: Project[] = [
     stack: ['React', 'FastAPI', 'Supabase', 'ESP8266', 'Blynk'],
     github: 'https://github.com/omrajput14/Smart-irrigation-system-',
     live: 'https://ecoirrigate.vercel.app/',
+    image: '/images/showcase/ecoirrigate.jpg',
   },
   {
     id: 'digital-panchayat',
@@ -110,16 +90,14 @@ export const projects: Project[] = [
     categories: ['civictech', 'backend'],
     stack: ['Java', 'Swing', 'SQLite', 'JDBC', 'RBAC'],
     github: 'https://github.com/omrajput14/Digital-Panchayat-Management-System',
+    image: '/images/showcase/digital-panchayat.jpg',
   },
 ];
 
 export const vetra = projects[0];
 
-/** Real VETRA Government Dashboard screens, cycled in the hero. */
-export const heroScreens = [
-  'gov-1-overview', 'gov-2-surveillance-map', 'gov-3-outbreaks', 'gov-4-analytics', 'gov-5-reports',
-  'gov-6-vaccination', 'gov-7-labs', 'gov-8-protocols', 'gov-9-biosecurity', 'gov-10-settings',
-].map((f) => `/images/vetra-app/${f}.png`);
+/** Real project covers, cycled in the hero. */
+export const heroScreens = projects.map((p) => p.image!).filter(Boolean);
 
 
 
@@ -146,7 +124,7 @@ export interface Metric {
 
 export const metrics: Metric[] = [
   { value: '1700', numeric: 1700, suffix: '+', label: 'GitHub Commits' },
-  { value: '7', numeric: 7, suffix: '', label: 'Systems Built' },
+  { value: '5', numeric: 5, suffix: '', label: 'Systems Built' },
   { value: '3', numeric: 3, suffix: '', label: 'Domains' },
 ];
 

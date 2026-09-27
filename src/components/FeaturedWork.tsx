@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger } from '../lib/lenis';
 import { projects } from '../lib/data';
-import { Cover } from './Cover';
 
 // Where each flying card sits in the frame (left%, top%) — spread around the
 // edges so the horizontally-scrolling titles stay readable in the middle.
@@ -72,10 +71,10 @@ export function FeaturedWork() {
           <span className="t-mono">[ {projects.length} ]</span>
         </div>
         <div className="flex flex-col gap-10">
-          {projects.map((p, i) => (
+          {projects.map((p) => (
             <a key={p.id} href={p.live ?? p.github} target="_blank" rel="noreferrer" className="block">
               <div className="overflow-hidden rounded-lg">
-                {p.image ? <div className="aspect-[16/10]"><img src={p.image} alt={p.name} /></div> : <Cover project={p} index={i} />}
+                <div className="aspect-[16/9]"><img src={p.image} alt={p.name} /></div>
               </div>
               <div className="mt-3 flex items-baseline justify-between gap-4">
                 <h3 className="t-display text-3xl">{p.name}</h3>
@@ -112,7 +111,7 @@ export function FeaturedWork() {
             className="absolute w-[24vw] max-w-[380px] overflow-hidden rounded-lg shadow-2xl will-change-transform"
             style={{ left: `${SLOTS[i % SLOTS.length][0]}%`, top: `${SLOTS[i % SLOTS.length][1]}%`, transformStyle: 'preserve-3d' }}
           >
-            {p.image ? <div className="aspect-[16/10]"><img src={p.image} alt={p.name} /></div> : <Cover project={p} index={i} />}
+            <div className="aspect-[16/9]"><img src={p.image} alt={p.name} /></div>
           </a>
         ))}
       </div>
