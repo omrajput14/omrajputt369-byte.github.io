@@ -1,6 +1,7 @@
 // Hand-drawn doodle panels for the service cards — the reference's service
 // images are black line doodles on white; these are the systems-engineering
-// equivalent. A small turbulence filter gives the lines a hand-drawn wobble.
+// equivalent. No SVG turbulence filter: re-rasterising it as the sticky cards
+// un-stack made scrolling back up stall for hundreds of ms.
 export type DoodleKind = 'backend' | 'data' | 'mobile' | 'cloud';
 
 const label = { fontFamily: 'Caveat, "Comic Sans MS", cursive', fontSize: 26, fill: 'currentColor', stroke: 'none' } as const;
@@ -72,16 +73,9 @@ function Cloud() {
 }
 
 export function Doodle({ kind }: { kind: DoodleKind }) {
-  const id = `wobble-${kind}`;
   return (
     <svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMin meet" className="h-full w-full" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-      <defs>
-        <filter id={id}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" />
-          <feDisplacementMap in="SourceGraphic" scale="3" />
-        </filter>
-      </defs>
-      <g filter={`url(#${id})`}>
+      <g>
         {kind === 'backend' && <Backend />}
         {kind === 'data' && <Data />}
         {kind === 'mobile' && <Mobile />}

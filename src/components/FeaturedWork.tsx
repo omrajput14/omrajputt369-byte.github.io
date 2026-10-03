@@ -50,7 +50,9 @@ export function FeaturedWork() {
           if (!card) return;
           const s = Math.min(1, Math.max(0, (p - i * 0.075) * 2));
           const fade = s < 0.15 ? s / 0.15 : s > 0.85 ? (1 - s) / 0.15 : 1;
-          gsap.set(card, { z: -1500 + 3000 * s, scale: s, opacity: fade });
+          // Stop at z=500 (2x) — near the 1000px perspective plane a card blows up
+          // to a giant layer, and scrolling back up rasterised it there (~0.5s stall).
+          gsap.set(card, { z: -1500 + 2000 * s, scale: s, opacity: fade });
         });
 
         bars.current.forEach((bar, i) => {
